@@ -8,6 +8,8 @@ public class Player {
 
     public Point2D playerVelocity = new Point2D(0,0);
 
+    public float width;
+    public float height;
     public boolean canJump = true;
 
 
@@ -19,12 +21,12 @@ public class Player {
             for (Node platform : level.platforms){
                 if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent())){
                     if(movingRight){
-                        if(playerNode.getTranslateX() + 40 == platform.getTranslateX()){
+                        if(playerNode.getTranslateX() + this.width >= platform.getTranslateX()){
                             return;
                         }
                     }
                     else{
-                        if(playerNode.getTranslateX() == platform.getTranslateX() + 60){
+                        if(playerNode.getTranslateX() <= platform.getTranslateX() + level.platformWidth){
                             return;
                         }
                     }
@@ -41,14 +43,14 @@ public class Player {
             for (Node platform : level.platforms){
                 if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent())){
                     if(movingDown){
-                        if(playerNode.getTranslateY() + 40 == platform.getTranslateY()){
+                        if(playerNode.getTranslateY() + this.height >= platform.getTranslateY()){
                             playerNode.setTranslateY(playerNode.getTranslateY() - 1);
                             canJump = true;
                             return;
                         }
                     }
                     else{
-                        if(playerNode.getTranslateY() == platform.getTranslateY() + 60){
+                        if(playerNode.getTranslateY() <= platform.getTranslateY() + level.platformHeight){
                             return;
                         }
                     }

@@ -31,7 +31,7 @@ public class Game {
             player.moveX(-5, level);
         }
 
-        if (isPressed(KeyCode.D) && player.playerNode.getTranslateX() + 40 <= level.levelWidth - 5) {
+        if (isPressed(KeyCode.D) && player.playerNode.getTranslateX() + player.width <= level.width - 5) {
             player.moveX(5, level);
         }
 
