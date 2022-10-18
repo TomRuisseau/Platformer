@@ -17,7 +17,6 @@ public class Main extends Application {
     Display display = new Display(new Game(new Player(), new Level()));
 
     public void start(Stage primaryStage) {
-        display.initContent();
 
         Scene scene = new Scene(display.appRoot);
         scene.setOnKeyPressed(event -> display.game.keys.put(event.getCode(), true));
@@ -25,6 +24,10 @@ public class Main extends Application {
         primaryStage.setTitle("Platformer Test");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setFullScreen(true);
+
+        display.initContent(primaryStage);
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override

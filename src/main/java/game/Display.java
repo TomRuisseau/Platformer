@@ -4,6 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class Display {
     public Game game;
@@ -16,8 +17,8 @@ public class Display {
         this.game = game;
     }
 
-    public void initContent() {
-        Rectangle bg = new Rectangle(1280, 720);
+    public void initContent(Stage primaryStage) {
+        Rectangle bg = new Rectangle(primaryStage.getWidth(), primaryStage.getHeight());
 
         game.level.levelWidth = LevelData.LEVEL1[0].length() * 60;
 
@@ -28,7 +29,7 @@ public class Display {
                     case '0' :
                         break;
                     case '1' :
-                        Node platform = createEntity(j*60, i*60, 60, 60, Color.BROWN);
+                        Node platform = createEntity(j*60, i*60, 60, 60, Color.DARKMAGENTA);
                         game.level.platforms.add(platform);
                         break;
                 }
