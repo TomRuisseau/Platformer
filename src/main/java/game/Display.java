@@ -49,10 +49,10 @@ public class Display {
         game.player.height = game.level.platformHeight * (float)0.6;
 
         game.player.playerNode.translateXProperty().addListener((obs,old,newValue) ->{
-            int offset = newValue.intValue();
+            float offset = newValue.floatValue();
 
-            if(offset > 640 && offset < game.level.width - 640){
-                game.gameRoot.setLayoutX(-(offset - 640));
+            if(offset > (screenWidth /2) && offset < game.level.width - (screenWidth /2)){
+                game.gameRoot.setLayoutX(-(offset - (screenWidth /2)));
             }
         });
 
