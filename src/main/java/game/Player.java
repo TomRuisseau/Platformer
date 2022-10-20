@@ -54,6 +54,7 @@ public class Player {
                     else{
                         if(playerNode.getTranslateY()<= platform.getTranslateY() + level.platformHeight){
                             playerNode.setTranslateY(playerNode.getTranslateY() + 1);
+                            playerVelocity = playerVelocity.add(0,- playerVelocity.getY());
                             return;
                         }
                     }
