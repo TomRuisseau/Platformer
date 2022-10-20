@@ -16,23 +16,24 @@ public class Player {
 
     public void moveX(int value, Level level){
         boolean movingRight = value > 0;
-
         for (int i = 0; i < Math.abs(value); i++){
+            playerNode.setTranslateX(playerNode.getTranslateX() + (movingRight ? 1 : -1));
             for (Node platform : level.platforms){
                 if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent())){
                     if(movingRight){
-                        if(playerNode.getTranslateX() + this.width >= platform.getTranslateX()){
+                        if(playerNode.getTranslateX() + this.width>= platform.getTranslateX()){
+                            playerNode.setTranslateX(playerNode.getTranslateX() + -1);
                             return;
                         }
                     }
                     else{
                         if(playerNode.getTranslateX() <= platform.getTranslateX() + level.platformWidth){
+                            playerNode.setTranslateX(playerNode.getTranslateX() +  1);
                             return;
                         }
                     }
                 }
             }
-            playerNode.setTranslateX(playerNode.getTranslateX() + (movingRight ? 1 : -1));
         }
     }
 
@@ -40,6 +41,7 @@ public class Player {
         boolean movingDown = value > 0;
 
         for (int i = 0; i < Math.abs(value); i++){
+            playerNode.setTranslateY(playerNode.getTranslateY() + (movingDown ? 1 : -1));
             for (Node platform : level.platforms){
                 if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent())){
                     if(movingDown){
@@ -50,13 +52,13 @@ public class Player {
                         }
                     }
                     else{
-                        if(playerNode.getTranslateY() <= platform.getTranslateY() + level.platformHeight){
+                        if(playerNode.getTranslateY()<= platform.getTranslateY() + level.platformHeight){
+                            playerNode.setTranslateY(playerNode.getTranslateY() + 1);
                             return;
                         }
                     }
                 }
             }
-            playerNode.setTranslateY(playerNode.getTranslateY() + (movingDown ? 1 : -1));
         }
     }
 
