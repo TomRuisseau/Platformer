@@ -28,6 +28,9 @@ public class Game {
         if (controler.isPressed(KeyCode.Z) && player.playerNode.getTranslateY() >= 5) {
             player.jump();
         }
+        else {
+            player.canJump = false;
+        }
 
         if (controler.isPressed(KeyCode.Q) && player.playerNode.getTranslateX() >= 5) {
             player.moveX(-5, level);
@@ -45,6 +48,9 @@ public class Game {
             player.playerVelocity = player.playerVelocity.add(0, 1);
         }
 
+        if(player.playerNode.getTranslateY() >= level.height){
+            restart();
+        }
         player.moveY((int)player.playerVelocity.getY(), level);
     }
     public void restart(){

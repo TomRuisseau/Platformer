@@ -68,10 +68,15 @@ public class Player {
 
     public void jump(){
         if(canJump){
-            if(playerVelocity.getY() > -30){
-            playerVelocity = playerVelocity.add(0, -5);
-            
+            if(playerVelocity.getY() > -20){
+                if (playerVelocity.getY()>=-8){
+                    playerVelocity = playerVelocity.add(0, -9);
+                }
+                else{
+                    playerVelocity = playerVelocity.add(0, -2);
+                }
             }
+
             else{
                 canJump = false;
             }
