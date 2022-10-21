@@ -59,17 +59,22 @@ public class Player {
                         }
                     }
                 }
-                else{
-                    canJump = false;
-                }
+                //else{
+                    //canJump = false;
+                //}
             }
         }
     }
 
     public void jump(){
         if(canJump){
-            playerVelocity = playerVelocity.add(0, -30);
-            canJump = false;
+            if(playerVelocity.getY() > -50){
+            playerVelocity = playerVelocity.add(0, -5);
+            System.out.println(playerVelocity.getY());
+            }
+            else{
+                canJump = false;
+            }
         }
     }
 
