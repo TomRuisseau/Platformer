@@ -13,25 +13,26 @@ public class Game {
 
     public  ArrayList<Enemie> enemies = new ArrayList<>();
 
-    public HashMap<KeyCode, Boolean> keys = new HashMap<>();
+    Controler controler;
 
     public Pane gameRoot = new Pane();
 
-    public Game(Player player, Level level) {
+    public Game(Player player, Level level, Controler controler) {
         this.player = player;
         this.level = level;
+        this.controler = controler;
     }
 
     public void update(){
-        if (isPressed(KeyCode.Z) && player.playerNode.getTranslateY() >= 5) {
+        if (controler.isPressed(KeyCode.Z) && player.playerNode.getTranslateY() >= 5) {
             player.jump();
         }
 
-        if (isPressed(KeyCode.Q) && player.playerNode.getTranslateX() >= 5) {
+        if (controler.isPressed(KeyCode.Q) && player.playerNode.getTranslateX() >= 5) {
             player.moveX(-5, level);
         }
 
-        if (isPressed(KeyCode.D) && player.playerNode.getTranslateX() + player.width <= level.width - 5) {
+        if (controler.isPressed(KeyCode.D) && player.playerNode.getTranslateX() + player.width <= level.width - 5) {
             player.moveX(5, level);
         }
 
@@ -48,7 +49,4 @@ public class Game {
         player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
     }
 
-    public boolean isPressed(KeyCode key){
-        return keys.getOrDefault(key,false);
-    }
 }

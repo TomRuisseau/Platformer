@@ -14,13 +14,12 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    Display display = new Display(new Game(new Player(), new Level()));
+    Display display = new Display(new Game(new Player(), new Level(), new Controler()));
 
     public void start(Stage primaryStage) {
 
         Scene scene = new Scene(display.appRoot);
-        scene.setOnKeyPressed(event -> display.game.keys.put(event.getCode(), true));
-        scene.setOnKeyReleased(event -> display.game.keys.put(event.getCode(), false));
+        display.game.controler.createListeners(scene);
         primaryStage.setTitle("Platformer Test");
         primaryStage.setScene(scene);
         primaryStage.show();
