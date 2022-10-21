@@ -41,6 +41,12 @@ public class Game {
 
         player.moveY((int)player.playerVelocity.getY(), level);
     }
+    public void restart(){
+
+        player.playerNode.setTranslateX(0);
+        player.playerNode.setTranslateY(600);
+        player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
+    }
 
     public boolean isPressed(KeyCode key){
         return keys.getOrDefault(key,false);
