@@ -36,7 +36,13 @@ public class Game {
             player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - 10, 0);
         }
         else if(player.playerVelocity.getX() < 0){
-            player.playerVelocity = player.playerVelocity.add( 0.5, 0);
+            if(player.isTouchingGround){
+                player.playerVelocity = player.playerVelocity.add( 0.5, 0);
+            }
+            else{
+                player.playerVelocity = player.playerVelocity.add( 0.1, 0);
+            }
+
         }
 
 
@@ -44,7 +50,12 @@ public class Game {
             player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + 10, 0);
         }
         else if( player.playerVelocity.getX() > 0){
-            player.playerVelocity = player.playerVelocity.add( -0.5, 0);
+            if(player.isTouchingGround){
+                player.playerVelocity = player.playerVelocity.add( -0.5, 0);
+            }
+            else{
+                player.playerVelocity = player.playerVelocity.add( -0.1, 0);
+            }
         }
 
         if (player.playerVelocity.getY() < 10){

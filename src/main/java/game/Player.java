@@ -12,6 +12,8 @@ public class Player {
     public float height;
     public boolean canJump = true;
 
+    public boolean isTouchingGround = false;
+
 
 
     public void moveX(int value, Level level){
@@ -39,7 +41,7 @@ public class Player {
 
     public void moveY(int value, Level level){
         boolean movingDown = value > 0;
-
+        isTouchingGround = false;
         for (int i = 0; i < Math.abs(value); i++){
             playerNode.setTranslateY(playerNode.getTranslateY() + (movingDown ? 1 : -1));
             for (Node platform : level.platforms){
@@ -48,6 +50,7 @@ public class Player {
                         if(playerNode.getTranslateY() + this.height >= platform.getTranslateY()){
                             playerNode.setTranslateY(playerNode.getTranslateY() - 1);
                             canJump = true;
+                            isTouchingGround = true;
                             return;
                         }
                     }
