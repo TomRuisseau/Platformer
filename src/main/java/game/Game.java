@@ -45,7 +45,7 @@ public class Game {
         }
 
         if (player.playerVelocity.getY() < 10){
-            player.playerVelocity = player.playerVelocity.add(0, 1);
+            player.playerVelocity = player.playerVelocity.add(0, 2);
         }
 
         if(player.playerNode.getTranslateY() >= level.height){

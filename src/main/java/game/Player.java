@@ -55,6 +55,7 @@ public class Player {
                         if(playerNode.getTranslateY()<= platform.getTranslateY() + level.platformHeight){
                             playerNode.setTranslateY(playerNode.getTranslateY() + 1);
                             playerVelocity = playerVelocity.add(0,- playerVelocity.getY());
+                            canJump = false;
                             return;
                         }
                     }
@@ -68,12 +69,12 @@ public class Player {
 
     public void jump(){
         if(canJump){
-            if(playerVelocity.getY() > -20){
-                if (playerVelocity.getY()>=-8){
-                    playerVelocity = playerVelocity.add(0, -9);
+            if(playerVelocity.getY() > -30){
+                if (playerVelocity.getY()>=-10){
+                    playerVelocity = playerVelocity.add(0, -11);
                 }
                 else{
-                    playerVelocity = playerVelocity.add(0, -2);
+                    playerVelocity = playerVelocity.add(0, -4);
                 }
             }
 
