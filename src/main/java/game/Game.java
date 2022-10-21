@@ -33,25 +33,35 @@ public class Game {
         }
 
         if (controler.isPressed(KeyCode.Q) && player.playerNode.getTranslateX() >= 5) {
-            player.moveX(-5, level);
+            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - 10, 0);
+        }
+        else if(player.playerVelocity.getX() < 0){
+            player.playerVelocity = player.playerVelocity.add( 0.5, 0);
         }
 
-        if(controler.isPressed((KeyCode.R))){
-            restart();
-        }
 
         if (controler.isPressed(KeyCode.D) && player.playerNode.getTranslateX() + player.width <= level.width - 5) {
-            player.moveX(5, level);
+            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + 10, 0);
+        }
+        else if( player.playerVelocity.getX() > 0){
+            player.playerVelocity = player.playerVelocity.add( -0.5, 0);
         }
 
         if (player.playerVelocity.getY() < 10){
             player.playerVelocity = player.playerVelocity.add(0, 2);
         }
 
+        player.moveY((int)player.playerVelocity.getY(), level);
+        player.moveX((int)player.playerVelocity.getX(), level);
+
+        if(controler.isPressed((KeyCode.R))){
+            restart();
+        }
+
         if(player.playerNode.getTranslateY() >= level.height){
             restart();
         }
-        player.moveY((int)player.playerVelocity.getY(), level);
+
     }
     public void restart(){
 

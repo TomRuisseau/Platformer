@@ -60,21 +60,18 @@ public class Player {
                         }
                     }
                 }
-                //else{
-                    //canJump = false;
-                //}
             }
         }
     }
 
     public void jump(){
         if(canJump){
-            if(playerVelocity.getY() > -30){
+            if(playerVelocity.getY() > -25){
                 if (playerVelocity.getY()>=-10){
                     playerVelocity = playerVelocity.add(0, -11);
                 }
                 else{
-                    playerVelocity = playerVelocity.add(0, -4);
+                    playerVelocity = playerVelocity.add(0, -3);
                 }
             }
 
