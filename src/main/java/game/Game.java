@@ -6,6 +6,8 @@ import javafx.scene.layout.Pane;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Game {
@@ -15,7 +17,9 @@ public class Game {
 
     public  ArrayList<Enemie> enemies = new ArrayList<>();
 
-    Controler controler;
+    public Controler controler;
+
+    public Display display;
 
     public Pane gameRoot = new Pane();
 
@@ -79,10 +83,12 @@ public class Game {
     }
     public void restart(){
 
-        player.playerNode.setTranslateX(0);
-        player.playerNode.setTranslateY(500);
+        player.playerNode.setTranslateX(level.platformWidth);
+        player.playerNode.setTranslateY(level.height - (2 * level.platformHeight));
         player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
         gameRoot.setLayoutX(0);
+        gameRoot.setLayoutY(-level.height + display.screenHeight);
+
     }
 
 }

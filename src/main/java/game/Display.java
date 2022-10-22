@@ -30,6 +30,8 @@ public class Display {
         game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1[0].length())) * game.level.width;
         game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1.length)) * game.level.height;
 
+        game.gameRoot.setLayoutY(-game.level.height + screenHeight);
+
         for (int i = 0; i < LevelData.LEVEL1.length; i++){
             String line = LevelData.LEVEL1[i];
             for (int j = 0; j < line.length(); j++){
@@ -44,7 +46,7 @@ public class Display {
             }
         }
 
-        game.player.playerNode = createEntity(game.level.platformWidth, screenHeight - (2 * game.level.platformHeight), game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
+        game.player.playerNode = createEntity(game.level.platformWidth, game.level.height - (2 * game.level.platformHeight), game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
         game.player.width = game.level.platformWidth * (float)0.6;
         game.player.height = game.level.platformHeight * (float)0.6;
 
@@ -56,7 +58,18 @@ public class Display {
             }
         });
 
+        game.player.playerNode.translateYProperty().addListener((obs,old,newValue) ->{
+            float offset = newValue.floatValue();
+
+            if(offset > (screenHeight /2) && offset < game.level.height - (screenHeight /2)){
+                game.gameRoot.setLayoutY(-(offset - (screenHeight /2)));
+            }
+        });
+
+
+
         game.primaryStage = primaryStage;
+        game.display = this;
         appRoot.getChildren().addAll(bg,game.gameRoot, uiRoot);
     }
     public Node createEntity(float x, float y, float w, float h, Color color){
