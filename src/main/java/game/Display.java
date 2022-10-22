@@ -25,7 +25,7 @@ public class Display {
         Rectangle bg = new Rectangle(screenWidth , screenHeight);
 
         game.level.width =  screenWidth * (float)2;
-        game.level.height = screenHeight * (float)1;
+        game.level.height = screenHeight * (float)2;
 
         game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1[0].length())) * game.level.width;
         game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1.length)) * game.level.height;
@@ -44,7 +44,7 @@ public class Display {
             }
         }
 
-        game.player.playerNode = createEntity(0, 600, game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
+        game.player.playerNode = createEntity(game.level.platformWidth, screenHeight - (2 * game.level.platformHeight), game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
         game.player.width = game.level.platformWidth * (float)0.6;
         game.player.height = game.level.platformHeight * (float)0.6;
 
@@ -56,6 +56,7 @@ public class Display {
             }
         });
 
+        game.primaryStage = primaryStage;
         appRoot.getChildren().addAll(bg,game.gameRoot, uiRoot);
     }
     public Node createEntity(float x, float y, float w, float h, Color color){

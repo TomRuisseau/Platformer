@@ -19,6 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
 
         Scene scene = new Scene(display.appRoot);
+        scene.setCursor(Cursor.NONE);
         display.game.controler.createListeners(scene);
         primaryStage.setTitle("Platformer Test");
         primaryStage.setScene(scene);

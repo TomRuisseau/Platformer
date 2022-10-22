@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javafx.stage.Stage;
 
 public class Game {
     public Player player;
@@ -18,6 +19,8 @@ public class Game {
 
     public Pane gameRoot = new Pane();
 
+    public Stage primaryStage;
+
     public Game(Player player, Level level, Controler controler) {
         this.player = player;
         this.level = level;
@@ -25,7 +28,7 @@ public class Game {
     }
 
     public void update(){
-        if (controler.isPressed(KeyCode.Z) && player.playerNode.getTranslateY() >= 5) {
+        if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) ) && player.playerNode.getTranslateY() >= 5) {
             player.jump();
         }
         else {
