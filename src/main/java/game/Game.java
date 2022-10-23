@@ -41,14 +41,14 @@ public class Game {
             player.playerVelocity = player.playerVelocity.add(-player.width * 0.015, 0);
         }
         else if(player.playerVelocity.getX() < 0){
-            if(player.isTouchingGround){
-                player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.1, 0);
+            if(player.isTouchingGround){//friction au sol
+                player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.05, 0);
 
                 if(player.playerVelocity.getX() > 0){//empeche la friction de causer un demi tour
                     player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
                 }
             }
-            else{
+            else{//friction dans l'air
                 player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.02, 0);
             }
         }
@@ -58,14 +58,14 @@ public class Game {
             player.playerVelocity = player.playerVelocity.add( player.width * 0.015, 0);
         }
         else if( player.playerVelocity.getX() > 0){
-            if(player.isTouchingGround){
-                player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.1, 0);
+            if(player.isTouchingGround){//friction au sol
+                player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.05, 0);
 
                 if(player.playerVelocity.getX() < 0){//empeche la friction de causer un demi tour
                     player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
                 }
             }
-            else{
+            else{//friction dans l'air
                 player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.02, 0);
             }
         }
