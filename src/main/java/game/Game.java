@@ -37,8 +37,8 @@ public class Game {
             player.canJump = false;
         }
 
-        if (controler.isPressed(KeyCode.Q)) {
-            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - player.width * 0.2, 0);
+        if (controler.isPressed(KeyCode.Q) &&  player.playerVelocity.getX() > -player.width * 0.2) {
+            player.playerVelocity = player.playerVelocity.add(-player.width * 0.015, 0);
         }
         else if(player.playerVelocity.getX() < 0){
             if(player.isTouchingGround){
@@ -54,8 +54,8 @@ public class Game {
         }
 
 
-        if (controler.isPressed(KeyCode.D)) {
-            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + player.width * 0.2, 0);
+        if (controler.isPressed(KeyCode.D) &&  player.playerVelocity.getX() < player.width * 0.2) {
+            player.playerVelocity = player.playerVelocity.add( player.width * 0.015, 0);
         }
         else if( player.playerVelocity.getX() > 0){
             if(player.isTouchingGround){
