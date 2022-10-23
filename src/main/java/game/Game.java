@@ -32,41 +32,40 @@ public class Game {
     }
 
     public void update(){
-        if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) ) && player.playerNode.getTranslateY() >= 5) {
+        if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
             player.jump();
         }
         else {
             player.canJump = false;
         }
 
-        if (controler.isPressed(KeyCode.Q) && player.playerNode.getTranslateX() >= 5) {
-            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - 10, 0);
+        if (controler.isPressed(KeyCode.Q)) {
+            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - player.width * 0.25, 0);
         }
         else if(player.playerVelocity.getX() < 0){
             if(player.isTouchingGround){
-                player.playerVelocity = player.playerVelocity.add( 0.5, 0);
+                player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.1, 0);
             }
             else{
-                player.playerVelocity = player.playerVelocity.add( 0.1, 0);
+                player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.02, 0);
             }
-
         }
 
 
-        if (controler.isPressed(KeyCode.D) && player.playerNode.getTranslateX() + player.width <= level.width - 5) {
-            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + 10, 0);
+        if (controler.isPressed(KeyCode.D)) {
+            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + player.width * 0.25, 0);
         }
         else if( player.playerVelocity.getX() > 0){
             if(player.isTouchingGround){
-                player.playerVelocity = player.playerVelocity.add( -0.5, 0);
+                player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.1, 0);
             }
             else{
-                player.playerVelocity = player.playerVelocity.add( -0.1, 0);
+                player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.02, 0);
             }
         }
 
-        if (player.playerVelocity.getY() < 10){
-            player.playerVelocity = player.playerVelocity.add(0, 2);
+        if (player.playerVelocity.getY() < player.height * 0.3 && !player.canJump){
+            player.playerVelocity = player.playerVelocity.add(0, player.height *0.03);
         }
 
         player.moveY((int)player.playerVelocity.getY(), level);

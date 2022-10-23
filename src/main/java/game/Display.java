@@ -24,8 +24,8 @@ public class Display {
         screenHeight = (float) primaryStage.getHeight();
         Rectangle bg = new Rectangle(screenWidth , screenHeight);
 
-        game.level.width =  screenWidth * (float)2;
-        game.level.height = screenHeight * (float)2;
+        game.level.width =  screenWidth * (float)1.5;
+        game.level.height = screenHeight * (float)1.5;
 
         game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1[0].length())) * game.level.width;
         game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1.length)) * game.level.height;

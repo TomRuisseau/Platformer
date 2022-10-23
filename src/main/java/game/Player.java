@@ -69,12 +69,12 @@ public class Player {
 
     public void jump(){
         if(canJump){
-            if(playerVelocity.getY() > -25){
-                if (playerVelocity.getY()>=-10){
-                    playerVelocity = playerVelocity.add(0, -11);
+            if(playerVelocity.getY() > -height * 0.5){
+                if (playerVelocity.getY()>=-height * 0.2){
+                    playerVelocity = playerVelocity.add(0, -height * 0.2);
                 }
                 else{
-                    playerVelocity = playerVelocity.add(0, -3);
+                    playerVelocity = playerVelocity.add(0, -height *0.08);
                 }
             }
 
