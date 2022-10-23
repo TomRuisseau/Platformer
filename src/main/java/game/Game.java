@@ -40,11 +40,15 @@ public class Game {
         }
 
         if (controler.isPressed(KeyCode.Q)) {
-            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - player.width * 0.25, 0);
+            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() - player.width * 0.2, 0);
         }
         else if(player.playerVelocity.getX() < 0){
             if(player.isTouchingGround){
                 player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.1, 0);
+
+                if(player.playerVelocity.getX() > 0){//empeche la friction de causer un demi tour
+                    player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
+                }
             }
             else{
                 player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.02, 0);
@@ -53,11 +57,15 @@ public class Game {
 
 
         if (controler.isPressed(KeyCode.D)) {
-            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + player.width * 0.25, 0);
+            player.playerVelocity = player.playerVelocity.add(-player.playerVelocity.getX() + player.width * 0.2, 0);
         }
         else if( player.playerVelocity.getX() > 0){
             if(player.isTouchingGround){
                 player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.1, 0);
+                
+                if(player.playerVelocity.getX() < 0){//empeche la friction de causer un demi tour
+                    player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
+                }
             }
             else{
                 player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.02, 0);
