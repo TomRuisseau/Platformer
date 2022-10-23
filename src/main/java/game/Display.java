@@ -24,29 +24,37 @@ public class Display {
         screenHeight = (float) primaryStage.getHeight();
         Rectangle bg = new Rectangle(screenWidth , screenHeight);
 
-        game.level.width =  screenWidth * (float)1.5;
+        game.level.width =  screenWidth * (float)3;
         game.level.height = screenHeight * (float)1.5;
 
-        game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1[0].length())) * game.level.width;
-        game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1.length)) * game.level.height;
+        game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1_PATFORMS[0].length())) * game.level.width;
+        game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1_PATFORMS.length)) * game.level.height;
 
         game.gameRoot.setLayoutY(-game.level.height + screenHeight);
 
-        for (int i = 0; i < LevelData.LEVEL1.length; i++){
-            String line = LevelData.LEVEL1[i];
-            for (int j = 0; j < line.length(); j++){
-                switch (line.charAt(j)){
+        for (int i = 0; i < LevelData.LEVEL1_PATFORMS.length; i++){
+            String platformLine = LevelData.LEVEL1_PATFORMS[i];
+            String hazardLine = LevelData.LEVEL1_HAZARDS[i];
+            for (int j = 0; j < platformLine.length(); j++){
+                switch (platformLine.charAt(j)){
                     case '0' :
                         break;
                     case '1' :
-                        Node platform = createEntity(j*game.level.platformWidth,  i*game.level.platformHeight, game.level.platformWidth,  game.level.platformHeight, Color.DARKMAGENTA);
+                        Node platform = createPlatform(j*game.level.platformWidth,  i*game.level.platformHeight, game.level.platformWidth,  game.level.platformHeight, Color.DARKMAGENTA);
                         game.level.platforms.add(platform);
                         break;
+                }
+
+                switch (hazardLine.charAt(j)){
+                    case '0' :
+                        break;
+                    case '1':
+                        game.level.traps.add(new StaticSaw(j*game.level.platformWidth,  i*game.level.platformHeight, game));
                 }
             }
         }
 
-        game.player.playerNode = createEntity(game.level.platformWidth, game.level.height - (2 * game.level.platformHeight), game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
+        game.player.playerNode = createPlatform(game.level.platformWidth, game.level.height - (2 * game.level.platformHeight), game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
         game.player.width = game.level.platformWidth * (float)0.6;
         game.player.height = game.level.platformHeight * (float)0.6;
 
@@ -72,7 +80,7 @@ public class Display {
         game.display = this;
         appRoot.getChildren().addAll(bg,game.gameRoot, uiRoot);
     }
-    public Node createEntity(float x, float y, float w, float h, Color color){
+    public Node createPlatform(float x, float y, float w, float h, Color color){
         Rectangle entity = new Rectangle(w,h);
         entity.setTranslateX(x);
         entity.setTranslateY(y);

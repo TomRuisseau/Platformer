@@ -3,11 +3,8 @@ package game;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-import java.security.Key;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Game {
@@ -15,7 +12,7 @@ public class Game {
 
     public Level  level;
 
-    public  ArrayList<Enemie> enemies = new ArrayList<>();
+    public  ArrayList<Enemy> enemies = new ArrayList<>();
 
     public Controler controler;
 
@@ -28,6 +25,7 @@ public class Game {
     public Game(Player player, Level level, Controler controler) {
         this.player = player;
         this.level = level;
+        level.game = this;
         this.controler = controler;
     }
 
@@ -85,6 +83,12 @@ public class Game {
 
         if(player.playerNode.getTranslateY() >= level.height){
             restart();
+        }
+
+        for(Trap trap : level.traps ){
+            if (player.playerNode.getBoundsInParent().intersects(trap.node.getBoundsInParent())){
+                restart();
+            }
         }
 
     }
