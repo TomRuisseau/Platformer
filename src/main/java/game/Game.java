@@ -62,7 +62,7 @@ public class Game {
         else if( player.playerVelocity.getX() > 0){
             if(player.isTouchingGround){
                 player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.1, 0);
-                
+
                 if(player.playerVelocity.getX() < 0){//empeche la friction de causer un demi tour
                     player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
                 }
