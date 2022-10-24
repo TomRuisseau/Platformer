@@ -1,5 +1,7 @@
 package game;
 
+import game.traps.RotatingSaw;
+import game.traps.StaticSaw;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -50,6 +52,10 @@ public class Display {
                         break;
                     case '1':
                         game.level.traps.add(new StaticSaw(j*game.level.platformWidth,  i*game.level.platformHeight, game));
+                        break;
+                    case '2':
+                        game.level.traps.add(new RotatingSaw(j*game.level.platformWidth,  i*game.level.platformHeight, game));
+                        break;
                 }
             }
         }

@@ -4,4 +4,6 @@ module com.example.test {
 
     opens game to javafx.fxml;
     exports game;
+    exports game.traps;
+    opens game.traps to javafx.fxml;
 }

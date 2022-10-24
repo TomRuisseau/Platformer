@@ -1,5 +1,6 @@
 package game;
 
+import game.traps.Trap;
 import javafx.scene.Node;
 
 import java.util.ArrayList;

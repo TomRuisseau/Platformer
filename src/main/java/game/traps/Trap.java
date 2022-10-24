@@ -1,7 +1,8 @@
-package game;
+package game.traps;
 
 import java.util.*;
 
+import game.Level;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Point2D;

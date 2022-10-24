@@ -1,10 +1,12 @@
-package game;
+package game.traps;
 
+import game.Game;
+import game.Level;
+import game.traps.Trap;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 
-public class StaticSaw extends Trap{
+public class StaticSaw extends Trap {
     public StaticSaw(float x, float y, Game game) {
         Circle trap = new Circle(game.level.platformHeight * 0.6);
         trap.setTranslateX(x);
