@@ -2,6 +2,7 @@ package game;
 
 import game.traps.RotatingSaw;
 import game.traps.StaticSaw;
+import game.traps.Laser;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -55,6 +56,9 @@ public class Display {
                         break;
                     case '2':
                         game.level.traps.add(new RotatingSaw(j*game.level.platformWidth,  i*game.level.platformHeight, game));
+                        break;
+                    case '3' :
+                        game.level.traps.add(new Laser(j*game.level.platformWidth,  i*game.level.platformHeight, game));
                         break;
                 }
             }
