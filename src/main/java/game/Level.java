@@ -15,6 +15,11 @@ public class Level {
     public float platformWidth;
     public float platformHeight;
 
+    public void updateTraps(){
+        for(Trap trap : traps ){
+            trap.updateTrap(this);
+        }
+    }
 
 
 }

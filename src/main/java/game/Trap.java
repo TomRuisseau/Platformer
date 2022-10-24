@@ -16,4 +16,5 @@ import javafx.stage.Stage;
 public abstract class Trap {
     public Node node;
 
+    public abstract void updateTrap(Level level);
 }

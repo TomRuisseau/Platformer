@@ -15,4 +15,14 @@ public class StaticSaw extends Trap{
 
         game.gameRoot.getChildren().add(trap);
     }
+    public void updateTrap(Level level){
+        if (level.game.player.playerNode.getBoundsInParent().intersects(node.getBoundsInParent())){
+            level.game.restart();
+            return;
+        }
+
+        //update the sprite
+
+    }
+
 }
