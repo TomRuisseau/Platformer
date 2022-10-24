@@ -23,6 +23,7 @@ public class Game {
 
     public Stage primaryStage;
 
+    public long time = 0;
     public Game(Player player, Level level, Controler controler) {
         this.player = player;
         this.level = level;
@@ -31,6 +32,7 @@ public class Game {
     }
 
     public void update(){
+        time++;
         if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
             player.jump();
         }
@@ -86,11 +88,7 @@ public class Game {
             restart();
         }
 
-        for(Trap trap : level.traps ){
-            if (player.playerNode.getBoundsInParent().intersects(trap.node.getBoundsInParent())){
-                restart();
-            }
-        }
+        level.updateTraps();
 
     }
     public void restart(){
