@@ -21,7 +21,7 @@ public class Player {
         for (int i = 0; i < Math.abs(value); i++){
             playerNode.setTranslateX(playerNode.getTranslateX() + (movingRight ? 1 : -1));
             for (Node platform : level.platforms){
-                if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent())){
+                if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent()) || playerNode.getTranslateX() < 0 || playerNode.getTranslateX() + width > level.width){
                     if(movingRight){
                         if(playerNode.getTranslateX() + this.width>= platform.getTranslateX()){
                             playerNode.setTranslateX(playerNode.getTranslateX() + -1);

@@ -10,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 public class Laser extends Trap{
 
     public Node laserNode;
+    public int deSync;
 
     public Laser(float x, float y, Game game) {
 
