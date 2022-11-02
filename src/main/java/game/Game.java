@@ -24,6 +24,8 @@ public class Game {
     public Stage primaryStage;
 
     public long time = 0;
+
+    public long respawnTime = 0;
     public Game(Player player, Level level, Controler controler) {
         this.player = player;
         this.level = level;
@@ -33,52 +35,56 @@ public class Game {
 
     public void update(){
         time++;
-        if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
-            player.jump();
-        }
-        else {
-            player.canJump = false;
-        }
+        respawnTime++;
 
-        if (controler.isPressed(KeyCode.Q) &&  player.playerVelocity.getX() > -player.width * 0.2) {
-            player.playerVelocity = player.playerVelocity.add(-player.width * 0.015, 0);
-        }
-        else if(player.playerVelocity.getX() < 0){
-            if(player.isTouchingGround){//friction au sol
-                player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.05, 0);
+        if(respawnTime > 120){
+            if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
+                player.jump();
+            }
+            else {
+                player.canJump = false;
+            }
 
-                if(player.playerVelocity.getX() > 0){//empeche la friction de causer un demi tour
-                    player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
+            if (controler.isPressed(KeyCode.Q) &&  player.playerVelocity.getX() > -player.width * 0.2) {
+                player.playerVelocity = player.playerVelocity.add(-player.width * 0.015, 0);
+            }
+            else if(player.playerVelocity.getX() < 0){
+                if(player.isTouchingGround){//friction au sol
+                    player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.05, 0);
+
+                    if(player.playerVelocity.getX() > 0){//empeche la friction de causer un demi tour
+                        player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
+                    }
+                }
+                else{//friction dans l'air
+                    player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.02, 0);
                 }
             }
-            else{//friction dans l'air
-                player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.02, 0);
+
+
+            if (controler.isPressed(KeyCode.D) &&  player.playerVelocity.getX() < player.width * 0.2) {
+                player.playerVelocity = player.playerVelocity.add( player.width * 0.015, 0);
             }
-        }
+            else if( player.playerVelocity.getX() > 0){
+                if(player.isTouchingGround){//friction au sol
+                    player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.05, 0);
 
-
-        if (controler.isPressed(KeyCode.D) &&  player.playerVelocity.getX() < player.width * 0.2) {
-            player.playerVelocity = player.playerVelocity.add( player.width * 0.015, 0);
-        }
-        else if( player.playerVelocity.getX() > 0){
-            if(player.isTouchingGround){//friction au sol
-                player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.05, 0);
-
-                if(player.playerVelocity.getX() < 0){//empeche la friction de causer un demi tour
-                    player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
+                    if(player.playerVelocity.getX() < 0){//empeche la friction de causer un demi tour
+                        player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
+                    }
+                }
+                else{//friction dans l'air
+                    player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.02, 0);
                 }
             }
-            else{//friction dans l'air
-                player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.02, 0);
+
+            if (player.playerVelocity.getY() < player.height * 0.3 && !player.canJump){
+                player.playerVelocity = player.playerVelocity.add(0, player.height *0.03);
             }
-        }
 
-        if (player.playerVelocity.getY() < player.height * 0.3 && !player.canJump){
-            player.playerVelocity = player.playerVelocity.add(0, player.height *0.03);
+            player.moveY((int)player.playerVelocity.getY(), level);
+            player.moveX((int)player.playerVelocity.getX(), level);
         }
-
-        player.moveY((int)player.playerVelocity.getY(), level);
-        player.moveX((int)player.playerVelocity.getX(), level);
 
         if(controler.isPressed((KeyCode.R))){
             restart();
@@ -93,6 +99,7 @@ public class Game {
     }
     public void restart(){
 
+        respawnTime = 0;
         player.playerNode.setTranslateX(level.platformWidth);
         player.playerNode.setTranslateY(level.height - (2 * level.platformHeight));
         player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
