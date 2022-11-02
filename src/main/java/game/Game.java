@@ -26,11 +26,12 @@ public class Game {
     public long time = 0;
 
     public long respawnTime = 0;
-    public Game(Player player, Level level, Controler controler) {
-        this.player = player;
-        this.level = level;
+    public Game() {
+
+        this.player = new Player();
+        this.level = new Level();
         level.game = this;
-        this.controler = controler;
+        this.controler =  new Controler();
     }
 
     public void update(){
