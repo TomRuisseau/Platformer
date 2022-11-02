@@ -23,7 +23,6 @@ public class Display {
     }
 
     public void initContent(Stage primaryStage) {
-        LevelData.lineReader();
         screenWidth =  (float)primaryStage.getWidth();
         screenHeight = (float) primaryStage.getHeight();
         Rectangle bg = new Rectangle(screenWidth , screenHeight);
@@ -38,7 +37,7 @@ public class Display {
 
         for (int i = 0; i < LevelData.LEVEL1_PATFORMS.size(); i++){
             String platformLine = LevelData.LEVEL1_PATFORMS.get(i);
-            String hazardLine = LevelData.LEVEL1_HAZARDS[i];
+            String hazardLine = LevelData.LEVEL1_HAZARDS.get(i);
             for (int j = 0; j < platformLine.length(); j++){
                 switch (platformLine.charAt(j)){
                     case '0' :

@@ -23,6 +23,8 @@ public class Game {
 
     public Stage primaryStage;
 
+    public LevelData data = new LevelData();
+
     public long time = 0;
 
     public long respawnTime = 0;
