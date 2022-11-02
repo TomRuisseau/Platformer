@@ -13,12 +13,9 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-<<<<<<< HEAD
 
-    Display display = new Display(new Game(new Player(), new Level(), new Controler()));
-=======
     Display display = new Display();
->>>>>>> beb066c6ee7a3ac90b51f6d811ff4064ef31e5a9
+
 
 
     public void start(Stage primaryStage) {
