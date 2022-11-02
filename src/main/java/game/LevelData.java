@@ -29,6 +29,7 @@ public class LevelData {
                 }
 
             }
+            //test pour voir si c'est good
             System.out.print(" test " );
             System.out.println(LEVEL1_PATFORMS);
             reader.close();
