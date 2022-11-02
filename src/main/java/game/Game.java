@@ -37,7 +37,7 @@ public class Game {
         time++;
         respawnTime++;
 
-        if(respawnTime > 60){
+        if(respawnTime > 30){
             if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
                 player.jump();
             }

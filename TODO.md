@@ -1,7 +1,6 @@
 ## Trucs à faire en prio
 
 <ul>
-<li>Timer le replay</li>
 <li>Clean les import</li>
 <li>Baton qui relie la scie qui tourne</li>
 <li>Mettre level data dans un txt</li>
