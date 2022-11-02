@@ -18,8 +18,8 @@ public class Display {
 
     public float screenWidth;
     public float screenHeight;
-    public Display(Game game) {
-        this.game = game;
+    public Display() {
+        this.game = new Game();
     }
 
     public void initContent(Stage primaryStage) {
