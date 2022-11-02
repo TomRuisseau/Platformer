@@ -64,7 +64,7 @@ public class Display {
             }
         }
 
-        game.player.playerNode = createPlatform(game.level.platformWidth, game.level.height - (2 * game.level.platformHeight), game.level.platformWidth * (float)0.6, game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
+        game.player.playerNode = createPlatform(game.level.platformWidth, game.level.height - game.level.platformHeight - game.level.platformHeight * (float)0.6 - 1, game.level.platformWidth * (float)0.6 , game.level.platformHeight * (float)0.6, Color.CORNFLOWERBLUE);
         game.player.width = game.level.platformWidth * (float)0.6;
         game.player.height = game.level.platformHeight * (float)0.6;
 

@@ -37,7 +37,7 @@ public class Game {
         time++;
         respawnTime++;
 
-        if(respawnTime > 120){
+        if(respawnTime > 60){
             if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
                 player.jump();
             }
@@ -101,7 +101,7 @@ public class Game {
 
         respawnTime = 0;
         player.playerNode.setTranslateX(level.platformWidth);
-        player.playerNode.setTranslateY(level.height - (2 * level.platformHeight));
+        player.playerNode.setTranslateY(level.height - level.platformHeight - level.platformHeight * (float)0.6 - 1);
         player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
         gameRoot.setLayoutX(0);
         gameRoot.setLayoutY(-level.height + display.screenHeight);
