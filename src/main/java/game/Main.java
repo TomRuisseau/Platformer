@@ -13,7 +13,9 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
+
     Display display = new Display(new Game(new Player(), new Level(), new Controler()));
+
 
     public void start(Stage primaryStage) {
 

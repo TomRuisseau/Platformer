@@ -23,6 +23,7 @@ public class Display {
     }
 
     public void initContent(Stage primaryStage) {
+        LevelData.lineReader();
         screenWidth =  (float)primaryStage.getWidth();
         screenHeight = (float) primaryStage.getHeight();
         Rectangle bg = new Rectangle(screenWidth , screenHeight);
@@ -30,13 +31,13 @@ public class Display {
         game.level.width =  screenWidth * (float)3;
         game.level.height = screenHeight * (float)1.5;
 
-        game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1_PATFORMS[0].length())) * game.level.width;
-        game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1_PATFORMS.length)) * game.level.height;
+        game.level.platformWidth =  ((float)1/((float)LevelData.LEVEL1_PATFORMS.get(0).length())) * game.level.width;
+        game.level.platformHeight=  ((float)1/((float)LevelData.LEVEL1_PATFORMS.size())) * game.level.height;
 
         game.gameRoot.setLayoutY(-game.level.height + screenHeight);
 
-        for (int i = 0; i < LevelData.LEVEL1_PATFORMS.length; i++){
-            String platformLine = LevelData.LEVEL1_PATFORMS[i];
+        for (int i = 0; i < LevelData.LEVEL1_PATFORMS.size(); i++){
+            String platformLine = LevelData.LEVEL1_PATFORMS.get(i);
             String hazardLine = LevelData.LEVEL1_HAZARDS[i];
             for (int j = 0; j < platformLine.length(); j++){
                 switch (platformLine.charAt(j)){
