@@ -101,13 +101,18 @@ public class Game {
 
     }
     public void restart(){
-
+        time = 0;
         respawnTime = 0;
         player.playerNode.setTranslateX(level.platformWidth);
         player.playerNode.setTranslateY(level.height - level.platformHeight - level.platformHeight * (float)0.6 - 1);
         player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
         gameRoot.setLayoutX(0);
         gameRoot.setLayoutY(-level.height + display.screenHeight);
+
+
+        for(Trap trap : level.traps){
+            trap.reset(this);
+        }
 
     }
 

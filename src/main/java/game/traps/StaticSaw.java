@@ -7,7 +7,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class StaticSaw extends Trap {
+    public float x;
+    public float y;
     public StaticSaw(float x, float y, Game game) {
+        this.x = x;
+        this.y = y;
         Circle trap = new Circle(game.level.platformHeight * 0.6);
         trap.setTranslateX(x);
         trap.setTranslateY(y);
@@ -26,5 +30,7 @@ public class StaticSaw extends Trap {
         //update the sprite
 
     }
+public void reset(Game game){
 
+}
 }

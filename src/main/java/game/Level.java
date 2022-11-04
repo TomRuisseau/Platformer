@@ -19,6 +19,7 @@ public class Level {
     public void updateTraps(){
         for(Trap trap : traps ){
             trap.updateTrap(this);
+
         }
     }
 

@@ -12,8 +12,13 @@ public class Laser extends Trap{
     public Node laserNode;
     public int deSync;
 
+    public float x;
+    public float y;
+
     public Laser(float x, float y, Game game) {
 
+        this.x=x;
+        this.y=y;
 
         Rectangle trap = new Rectangle(x + game.level.platformWidth * 0.1 , y, game.level.platformWidth * 0.8, game.level.platformHeight);
         trap.setFill(Color.BEIGE);
@@ -36,6 +41,10 @@ public class Laser extends Trap{
         if ((level.game.time % 120 == 0)){
             laserNode.setVisible(!laserNode.isVisible());
         }
+
+    }
+
+    public void reset(Game game){
 
     }
 }

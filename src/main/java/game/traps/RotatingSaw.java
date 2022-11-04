@@ -16,9 +16,15 @@ public class RotatingSaw extends Trap{
 
     public Rectangle rectangleSaw = new Rectangle();
 
-    public int compteur = 0;
+
+    public float x;
+    public float y;
+
+    public double sumRota = 0 ;
 
     public RotatingSaw(float x, float y, Game game) {
+        this.x = x;
+        this.y = y;
 
         radius = game.level.platformHeight;
         center = new Point2D(x,y);
@@ -43,6 +49,9 @@ public class RotatingSaw extends Trap{
 
         game.gameRoot.getChildren().add(trap);
         game.gameRoot.getChildren().add(rectangleSaw);
+        System.out.println(rectangleSaw.getRotate());
+
+        rectangleSaw.getTransforms().add(new Rotate(90, center.getX(), center.getY()));
 
 
 
@@ -54,10 +63,7 @@ public class RotatingSaw extends Trap{
             return;
         }
 
-        if(compteur <1) {
-            rectangleSaw.getTransforms().add(new Rotate(90, center.getX(), center.getY()));
-            compteur++;
-        }
+
 
 
         node.setTranslateX(center.getX() + radius * Math.cos(level.game.time / (float)60));
@@ -65,5 +71,18 @@ public class RotatingSaw extends Trap{
 
 
       rectangleSaw.getTransforms().add(new Rotate(0.955,center.getX(),center.getY()));
+        sumRota = sumRota + 0.955;
+    }
+
+    public void reset(Game game){
+        node.setTranslateX(x);
+        node.setTranslateY(y - radius);
+
+
+        rectangleSaw.getTransforms().add(new Rotate(-sumRota, center.getX(), center.getY()));
+        
+        sumRota = 0;
+        System.out.println(rectangleSaw.getRotate());
+
     }
 }
