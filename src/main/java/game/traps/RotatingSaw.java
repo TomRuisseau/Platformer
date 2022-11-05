@@ -46,9 +46,6 @@ public class RotatingSaw extends Trap{
         this.node = trap;
 
         rectangleSaw.getTransforms().add(new Rotate(90, center.getX(), center.getY()));
-
-
-
     }
 
     @Override
@@ -77,7 +74,6 @@ public class RotatingSaw extends Trap{
         rectangleSaw.getTransforms().add(new Rotate(-sumRota, center.getX(), center.getY()));
         
         sumRota = 0;
-        System.out.println(rectangleSaw.getRotate());
 
     }
 }

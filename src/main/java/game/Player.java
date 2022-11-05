@@ -19,16 +19,8 @@ public class Player {
         return node;
     }
 
-    public void setNode(Node node) {
-        this.node = node;
-    }
-
     public Point2D getVelocity() {
         return velocity;
-    }
-
-    public void setVelocity(Point2D velocity) {
-        this.velocity = velocity;
     }
 
     public void addVelocity(double x, double y){
@@ -39,16 +31,9 @@ public class Player {
         return width;
     }
 
-    public void setWidth(float width) {
-        this.width = width;
-    }
 
     public float getHeight() {
         return height;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
     }
 
     public boolean isCanJump() {
@@ -63,9 +48,6 @@ public class Player {
         return isTouchingGround;
     }
 
-    public void setTouchingGround(boolean touchingGround) {
-        isTouchingGround = touchingGround;
-    }
 
     public void initPlayer(Node node, float platformWidth, float platformHeight, float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
         this.node = node;
@@ -101,7 +83,7 @@ public class Player {
                 if(node.getBoundsInParent().intersects(platform.getBoundsInParent()) || node.getTranslateX() < 0 || node.getTranslateX() + width > level.getWidth()){
                     if(movingRight){
                         if(node.getTranslateX() + this.width>= platform.getTranslateX()){
-                            node.setTranslateX(node.getTranslateX() + -1);
+                            node.setTranslateX(node.getTranslateX()  - 1);
                             return;
                         }
                     }

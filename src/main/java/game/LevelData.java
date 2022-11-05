@@ -9,8 +9,8 @@ public class LevelData {
 
 
 
-    private static final List<String> LEVEL1_PATFORMS = new ArrayList<String>();
-    private static final List<String> LEVEL1_HAZARDS = new ArrayList<String>();
+    private static final List<String> LEVEL1_PATFORMS = new ArrayList<>();
+    private static final List<String> LEVEL1_HAZARDS = new ArrayList<>();
 
 
     public LevelData() {

@@ -12,10 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class Game {
-    private Player player;
+    private final Player player;
 
-    private Level  level;
-    private Pane gameRoot = new Pane();
+    private final Level  level;
+    private final Pane gameRoot = new Pane();
 
     private LevelData levelData;
     private long time = 0;
@@ -32,9 +32,6 @@ public class Game {
         return gameRoot;
     }
 
-    public long getTime() {
-        return time;
-    }
 
     public long getRespawnTime() {
         return respawnTime;

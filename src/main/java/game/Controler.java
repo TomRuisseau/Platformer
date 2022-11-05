@@ -8,13 +8,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Controler {
-    private static HashMap<KeyCode, Boolean> keys = new HashMap<>();
+    private static final HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
-    private Game game;
+    private final Game game;
 
-    private Display display;
+    private final Display display;
 
-    private float screenWidth;
     private float screenHeight;
 
     public Controler() {
@@ -32,7 +31,7 @@ public class Controler {
     }
 
     public void initContent(Stage primaryStage){
-        screenWidth =  (float)primaryStage.getWidth();
+        float screenWidth = (float) primaryStage.getWidth();
         screenHeight = (float) primaryStage.getHeight();
 
         display.initGraphism(screenWidth, screenHeight);

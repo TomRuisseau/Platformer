@@ -6,8 +6,8 @@ import javafx.scene.Node;
 import java.util.ArrayList;
 
 public class Level {
-    private ArrayList<Node> platforms;
-    private ArrayList<Trap> traps;
+    private final ArrayList<Node> platforms;
+    private final ArrayList<Trap> traps;
 
     private float width;
     private float height;
@@ -15,7 +15,7 @@ public class Level {
     private float platformHeight;
 
     public Level() {
-        this.platforms =  new ArrayList<>();;
+        this.platforms =  new ArrayList<>();
         this.traps = new ArrayList<>();
     }
 

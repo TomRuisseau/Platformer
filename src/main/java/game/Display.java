@@ -5,9 +5,9 @@ import javafx.scene.shape.Rectangle;
 
 
 public class Display {
-    private Pane appRoot = new Pane();
+    private final Pane appRoot = new Pane();
 
-    private Pane uiRoot = new Pane();
+    private final Pane uiRoot = new Pane();
 
     private Rectangle backGround;
 
@@ -20,9 +20,6 @@ public class Display {
         return appRoot;
     }
 
-    public Rectangle getBackGround() {
-        return backGround;
-    }
 
     public void initGraphism(float screenWidth, float screenHeight) {
         backGround = new Rectangle(screenWidth , screenHeight);
