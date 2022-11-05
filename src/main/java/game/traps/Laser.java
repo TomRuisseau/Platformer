@@ -2,6 +2,7 @@ package game.traps;
 
 import game.Game;
 import game.Level;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.*;
 import javafx.scene.shape.Rectangle;
@@ -15,36 +16,36 @@ public class Laser extends Trap{
     public float x;
     public float y;
 
-    public Laser(float x, float y, Game game) {
+    public Laser(float x, float y, float platformWidth, float platformHeight) {
 
         this.x=x;
         this.y=y;
 
-        Rectangle trap = new Rectangle(x + game.level.platformWidth * 0.1 , y, game.level.platformWidth * 0.8, game.level.platformHeight);
+        Rectangle trap = new Rectangle(x + platformWidth * 0.1 , y, platformWidth * 0.8, platformHeight);
         trap.setFill(Color.BEIGE);
         this.node = trap;
 
-        Rectangle laser = new Rectangle(x + game.level.platformWidth * 0.3, y - 3* game.level.platformHeight, game.level.platformWidth * 0.4, game.level.platformHeight * 3);
+        Rectangle laser = new Rectangle(x + platformWidth * 0.3, y - 3* platformHeight, platformWidth * 0.4, platformHeight * 3);
         laser.setFill(Color.HOTPINK);
         this.laserNode = laser;
 
-        game.gameRoot.getChildren().add(trap);
-        game.gameRoot.getChildren().add(laser);
+
     }
 
-    public void updateTrap(Level level) {
-        if (level.game.player.playerNode.getBoundsInParent().intersects(laserNode.getBoundsInParent()) && laserNode.isVisible() ){
-            level.game.restart();
-            return;
-        }
+    @Override
+    public void addNodesToRoot(Pane gameRoot) {
+        gameRoot.getChildren().add(node);
+      gameRoot.getChildren().add(laserNode);
+    }
 
-        if ((level.game.time % 120 == 0)){
+    public boolean updateTrap(long time, Node playerNode) {
+        if ((time % 120 == 0)){
             laserNode.setVisible(!laserNode.isVisible());
         }
-
+        return playerNode.getBoundsInParent().intersects(laserNode.getBoundsInParent()) && laserNode.isVisible();
     }
 
-    public void reset(Game game){
+    public void reset(){
 
     }
 }

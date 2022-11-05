@@ -1,117 +1,204 @@
 package game;
 
+import game.traps.Laser;
+import game.traps.RotatingSaw;
+import game.traps.StaticSaw;
 import game.traps.Trap;
-import javafx.scene.input.KeyCode;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
-import java.util.ArrayList;
-
-import javafx.stage.Stage;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Game {
-    public Player player;
+    private Player player;
 
-    public Level  level;
+    private Level  level;
+    private Pane gameRoot = new Pane();
 
-    public  ArrayList<Enemy> enemies = new ArrayList<>();
+    private LevelData levelData;
+    private long time = 0;
 
-    public Controler controler;
-
-    public Display display;
-
-    public Pane gameRoot = new Pane();
-
-    public Stage primaryStage;
-
-    public LevelData data = new LevelData();
-
-    public long time = 0;
-
-    public long respawnTime = 0;
+    private long respawnTime = 0;
     public Game() {
 
         this.player = new Player();
         this.level = new Level();
-        level.game = this;
-        this.controler =  new Controler();
+        this.levelData = new LevelData();
     }
 
-    public void update(){
+    public Pane getGameRoot(){
+        return gameRoot;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public long getRespawnTime() {
+        return respawnTime;
+    }
+
+    public void preventPlayerFromJumping(){
+        player.setCanJump(false);
+    }
+
+    public Point2D getPlayerVelocity(){
+        return player.getVelocity();
+    }
+
+    public float getPlayerWidth(){
+        return player.getWidth();
+    }
+    public float getPlayerHeight(){
+        return player.getHeight();
+    }
+
+
+    public void addToPlayerVelocity(double x, double y){
+        player.addVelocity( x,  y);
+    }
+
+    public boolean playerTouchingGround(){
+        return player.isTouchingGround();
+    }
+
+    public boolean playerCanJump(){
+        return player.isCanJump();
+    }
+
+    public Node getPlayerNode(){
+        return player.getNode();
+    }
+
+    public float getLevelHeight(){
+        return level.getHeight();
+    }
+
+    public void makePlayerMoveX(){
+        player.moveX((int)getPlayerVelocity().getX(), level);
+    }
+
+    public void makePlayerMoveY(){
+        player.moveY((int)getPlayerVelocity().getY(), level);
+    }
+
+    public void updateTraps(float screenHeight){
+        if(level.updateTraps(time, player.getNode())){
+            restart(screenHeight);
+        }
+    }
+
+    public void initGame(float screenWidth, float screenHeight){
+
+        level.setWidth(screenWidth * (float)3);
+        level.setHeight(screenHeight * (float)1.5);
+
+        level.setPlatformWidth(((float)1/((float)LevelData.getLevelDataWidth())) * level.getWidth());
+        level.setPlatformHeight(((float)1/((float)LevelData.getLevelDataHeight())) * level.getHeight());
+
+        gameRoot.setLayoutY(-level.getHeight()+ screenHeight);
+
+        intiPlatforms();
+        initTraps();
+
+        Node playerNode = createPlatform(
+                level.getPlatformWidth(),
+                level.getHeight() -level.getPlatformHeight() - level.getPlatformHeight() * (float)0.6 - 1,
+                level.getPlatformWidth() * (float)0.6 ,
+                level.getPlatformHeight() * (float)0.6,
+                Color.CORNFLOWERBLUE);
+
+        player.initPlayer(playerNode,
+                level.getPlatformWidth(),
+                level.getPlatformHeight(),
+                screenWidth, screenHeight,
+                gameRoot,
+                level.getWidth(),
+                level.getHeight());
+
+
+    }
+
+    public void intiPlatforms(){
+        for (int i = 0; i < LevelData.getLevelDataHeight(); i++){
+            String platformLine = LevelData.getPlatformAt(i);
+            for (int j = 0; j < platformLine.length(); j++){
+                switch (platformLine.charAt(j)){
+                    case '0' :
+                        break;
+                    case '1' :
+                       level.addPlatform( createPlatform(
+                               j*level.getPlatformWidth(),
+                               i*level.getPlatformHeight(),
+                               level.getPlatformWidth(),
+                               level.getPlatformHeight(),
+                               Color.DARKMAGENTA));
+                       break;
+                }
+            }
+        }
+    }
+
+    public void initTraps(){
+        for (int i = 0; i < LevelData.getLevelDataHeight(); i++){
+            String hazardLine = LevelData.getHazardAt(i);
+            for (int j = 0; j < hazardLine.length(); j++){
+                switch (hazardLine.charAt(j)){
+                    case '0' :
+                        break;
+                    case '1':
+                        StaticSaw newStaticSaw = new StaticSaw(j*level.getPlatformWidth(),  i* level.getPlatformHeight(), level.getPlatformHeight());
+                        newStaticSaw.addNodesToRoot(gameRoot);
+                        level.addTrap(newStaticSaw);
+                        break;
+                    case '2':
+                        RotatingSaw newRotatingSaw = new RotatingSaw(j*level.getPlatformWidth(),  i*level.getPlatformHeight(), level.getPlatformHeight());
+                        newRotatingSaw.addNodesToRoot(gameRoot);
+                        level.addTrap(newRotatingSaw);
+                        break;
+                    case '3' :
+                        Laser newLaser = new Laser(j*level.getPlatformWidth(),  i*level.getPlatformHeight(), level.getPlatformWidth(), level.getPlatformHeight());
+                        newLaser.addNodesToRoot(gameRoot);
+                        level.addTrap(newLaser);
+                        break;
+                }
+            }
+        }
+    }
+
+    public Node createPlatform(float x, float y, float w, float h, Color color){
+        Rectangle entity = new Rectangle(w,h);
+        entity.setTranslateX(x);
+        entity.setTranslateY(y);
+        entity.setFill(color);
+
+        gameRoot.getChildren().add(entity);
+        return entity;
+    }
+    public void updateTimes(){
         time++;
         respawnTime++;
-
-        if(respawnTime > 30){
-            if ((controler.isPressed(KeyCode.Z) || controler.isPressed(KeyCode.SPACE) )) {
-                player.jump();
-            }
-            else {
-                player.canJump = false;
-            }
-
-            if (controler.isPressed(KeyCode.Q) &&  player.playerVelocity.getX() > -player.width * 0.2) {
-                player.playerVelocity = player.playerVelocity.add(-player.width * 0.015, 0);
-            }
-            else if(player.playerVelocity.getX() < 0){
-                if(player.isTouchingGround){//friction au sol
-                    player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.05, 0);
-
-                    if(player.playerVelocity.getX() > 0){//empeche la friction de causer un demi tour
-                        player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
-                    }
-                }
-                else{//friction dans l'air
-                    player.playerVelocity = player.playerVelocity.add( player.width * 0.25 * 0.02, 0);
-                }
-            }
-
-
-            if (controler.isPressed(KeyCode.D) &&  player.playerVelocity.getX() < player.width * 0.2) {
-                player.playerVelocity = player.playerVelocity.add( player.width * 0.015, 0);
-            }
-            else if( player.playerVelocity.getX() > 0){
-                if(player.isTouchingGround){//friction au sol
-                    player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.05, 0);
-
-                    if(player.playerVelocity.getX() < 0){//empeche la friction de causer un demi tour
-                        player.playerVelocity = player.playerVelocity.add( -player.playerVelocity.getX(), 0);
-                    }
-                }
-                else{//friction dans l'air
-                    player.playerVelocity = player.playerVelocity.add( -player.width * 0.25 * 0.02, 0);
-                }
-            }
-
-            if (player.playerVelocity.getY() < player.height * 0.3 && !player.canJump){
-                player.playerVelocity = player.playerVelocity.add(0, player.height *0.03);
-            }
-
-            player.moveY((int)player.playerVelocity.getY(), level);
-            player.moveX((int)player.playerVelocity.getX(), level);
-        }
-
-        if(controler.isPressed((KeyCode.R))){
-            restart();
-        }
-
-        if(player.playerNode.getTranslateY() >= level.height){
-            restart();
-        }
-
-        level.updateTraps();
-
     }
-    public void restart(){
+
+    public void makePlayerJump(){
+        player.jump();
+    }
+
+
+    public void restart(float screenHeight){
         time = 0;
         respawnTime = 0;
-        player.playerNode.setTranslateX(level.platformWidth);
-        player.playerNode.setTranslateY(level.height - level.platformHeight - level.platformHeight * (float)0.6 - 1);
-        player.playerVelocity.add(-player.playerVelocity.getX(),-player.playerVelocity.getY());
+        getPlayerNode().setTranslateX(level.getPlatformWidth());
+        getPlayerNode().setTranslateY(level.getHeight() - level.getPlatformHeight() - level.getPlatformHeight() * (float)0.6 - 1);
+        addToPlayerVelocity(-getPlayerVelocity().getX(),-getPlayerVelocity().getY());
         gameRoot.setLayoutX(0);
-        gameRoot.setLayoutY(-level.height + display.screenHeight);
+        gameRoot.setLayoutY(-level.getHeight() + screenHeight);
 
 
-        for(Trap trap : level.traps){
-            trap.reset(this);
+        for(Trap trap : level.getTraps()){
+            trap.reset();
         }
 
     }

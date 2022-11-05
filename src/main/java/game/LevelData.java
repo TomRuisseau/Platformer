@@ -4,14 +4,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.*;
-import java.util.Scanner;
 
 public class LevelData {
 
 
 
-    public static final List<String> LEVEL1_PATFORMS = new ArrayList<String>();
-    public static final List<String> LEVEL1_HAZARDS = new ArrayList<String>();
+    private static final List<String> LEVEL1_PATFORMS = new ArrayList<String>();
+    private static final List<String> LEVEL1_HAZARDS = new ArrayList<String>();
 
 
     public LevelData() {
@@ -19,6 +18,21 @@ public class LevelData {
         trapReader();
     }
 
+    public static int getLevelDataHeight(){
+        return LEVEL1_PATFORMS.size();
+    }
+
+    public static int getLevelDataWidth(){
+        return LEVEL1_PATFORMS.get(0).length();
+    }
+
+    public static String getPlatformAt(int indice){
+        return LEVEL1_PATFORMS.get(indice);
+    }
+
+    public static String getHazardAt(int indice){
+        return LEVEL1_HAZARDS.get(indice);
+    }
     public static void plateformReader() {
         StringBuilder sb = new StringBuilder();
 
@@ -34,7 +48,6 @@ public class LevelData {
                     s = sb.toString();
                     LEVEL1_PATFORMS.add(s);
                     sb.delete(0,sb.length());
-                    System.out.println(s + "\n");
                 }
                 else{
                     sb.append((char)title);

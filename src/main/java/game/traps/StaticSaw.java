@@ -1,36 +1,33 @@
 package game.traps;
 
-import game.Game;
-import game.Level;
-import game.traps.Trap;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class StaticSaw extends Trap {
     public float x;
     public float y;
-    public StaticSaw(float x, float y, Game game) {
+    public StaticSaw(float x, float y, float platformHeight) {
         this.x = x;
         this.y = y;
-        Circle trap = new Circle(game.level.platformHeight * 0.6);
+        Circle trap = new Circle(platformHeight * 0.6);
         trap.setTranslateX(x);
         trap.setTranslateY(y);
         trap.setFill(Color.RED);
-
-        this.node = trap;
-
-        game.gameRoot.getChildren().add(trap);
+        node = trap;
     }
-    public void updateTrap(Level level){
-        if (level.game.player.playerNode.getBoundsInParent().intersects(node.getBoundsInParent())){
-            level.game.restart();
-            return;
-        }
 
+    @Override
+    public void addNodesToRoot(Pane gameRoot) {
+        gameRoot.getChildren().add(node);
+    }
+
+    public boolean updateTrap(long time, Node playerNode){
+        return playerNode.getBoundsInParent().intersects(node.getBoundsInParent());
         //update the sprite
+    }
+    public void reset(){
 
     }
-public void reset(Game game){
-
-}
 }

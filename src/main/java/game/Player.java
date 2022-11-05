@@ -2,35 +2,112 @@ package game;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 public class Player {
-    public Node playerNode;
+    private Node node;
 
-    public Point2D playerVelocity = new Point2D(0,0);
+    private Point2D velocity = new Point2D(0,0);
 
-    public float width;
-    public float height;
-    public boolean canJump = true;
+    private float width;
+    private float height;
+    private boolean canJump = true;
 
-    public boolean isTouchingGround = false;
+    private boolean isTouchingGround = false;
 
+    public Node getNode() {
+        return node;
+    }
 
+    public void setNode(Node node) {
+        this.node = node;
+    }
+
+    public Point2D getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Point2D velocity) {
+        this.velocity = velocity;
+    }
+
+    public void addVelocity(double x, double y){
+       velocity = velocity.add(x,y);
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public boolean isCanJump() {
+        return canJump;
+    }
+
+    public void setCanJump(boolean canJump) {
+        this.canJump = canJump;
+    }
+
+    public boolean isTouchingGround() {
+        return isTouchingGround;
+    }
+
+    public void setTouchingGround(boolean touchingGround) {
+        isTouchingGround = touchingGround;
+    }
+
+    public void initPlayer(Node node, float platformWidth, float platformHeight, float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
+        this.node = node;
+        width = platformWidth * (float)0.6;
+        height = platformHeight * (float)0.6;
+        createListeners(screenWidth, screenHeight, gameRoot, levelWidth, levelHeight);
+
+    }
+
+    public void createListeners(float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
+        node.translateXProperty().addListener((obs, old, newValue) ->{
+            float offset = newValue.floatValue();
+
+            if(offset > (screenWidth /2) && offset <levelWidth - (screenWidth /2)){
+                gameRoot.setLayoutX(-(offset - (screenWidth /2)));
+            }
+        });
+
+        node.translateYProperty().addListener((obs, old, newValue) ->{
+            float offset = newValue.floatValue();
+
+            if(offset > (screenHeight /2) && offset < levelHeight - (screenHeight /2)){
+                gameRoot.setLayoutY(-(offset - (screenHeight /2)));
+            }
+        });
+    }
 
     public void moveX(int value, Level level){
         boolean movingRight = value > 0;
         for (int i = 0; i < Math.abs(value); i++){
-            playerNode.setTranslateX(playerNode.getTranslateX() + (movingRight ? 1 : -1));
-            for (Node platform : level.platforms){
-                if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent()) || playerNode.getTranslateX() < 0 || playerNode.getTranslateX() + width > level.width){
+            node.setTranslateX(node.getTranslateX() + (movingRight ? 1 : -1));
+            for (Node platform : level.getPlatforms()){
+                if(node.getBoundsInParent().intersects(platform.getBoundsInParent()) || node.getTranslateX() < 0 || node.getTranslateX() + width > level.getWidth()){
                     if(movingRight){
-                        if(playerNode.getTranslateX() + this.width>= platform.getTranslateX()){
-                            playerNode.setTranslateX(playerNode.getTranslateX() + -1);
+                        if(node.getTranslateX() + this.width>= platform.getTranslateX()){
+                            node.setTranslateX(node.getTranslateX() + -1);
                             return;
                         }
                     }
                     else{
-                        if(playerNode.getTranslateX() <= platform.getTranslateX() + level.platformWidth){
-                            playerNode.setTranslateX(playerNode.getTranslateX() +  1);
+                        if(node.getTranslateX() <= platform.getTranslateX() + level.getPlatformWidth()){
+                            node.setTranslateX(node.getTranslateX() +  1);
                             return;
                         }
                     }
@@ -43,21 +120,21 @@ public class Player {
         boolean movingDown = value > 0;
         isTouchingGround = false;
         for (int i = 0; i < Math.abs(value); i++){
-            playerNode.setTranslateY(playerNode.getTranslateY() + (movingDown ? 1 : -1));
-            for (Node platform : level.platforms){
-                if(playerNode.getBoundsInParent().intersects(platform.getBoundsInParent())){
+            node.setTranslateY(node.getTranslateY() + (movingDown ? 1 : -1));
+            for (Node platform : level.getPlatforms()){
+                if(node.getBoundsInParent().intersects(platform.getBoundsInParent())){
                     if(movingDown){
-                        if(playerNode.getTranslateY() + this.height >= platform.getTranslateY()){
-                            playerNode.setTranslateY(playerNode.getTranslateY() - 1);
+                        if(node.getTranslateY() + this.height >= platform.getTranslateY()){
+                            node.setTranslateY(node.getTranslateY() - 1);
                             canJump = true;
                             isTouchingGround = true;
                             return;
                         }
                     }
                     else{
-                        if(playerNode.getTranslateY()<= platform.getTranslateY() + level.platformHeight){
-                            playerNode.setTranslateY(playerNode.getTranslateY() + 1);
-                            playerVelocity = playerVelocity.add(0,- playerVelocity.getY());
+                        if(node.getTranslateY()<= platform.getTranslateY() + level.getPlatformHeight()){
+                            node.setTranslateY(node.getTranslateY() + 1);
+                            velocity = velocity.add(0,- velocity.getY());
                             canJump = false;
                             return;
                         }
@@ -69,12 +146,12 @@ public class Player {
 
     public void jump(){
         if(canJump){
-            if(playerVelocity.getY() > -height * 0.5){
-                if (playerVelocity.getY()>=-height * 0.2){
-                    playerVelocity = playerVelocity.add(0, -height * 0.2);
+            if(velocity.getY() > -height * 0.5){
+                if (velocity.getY()>=-height * 0.2){
+                    velocity = velocity.add(0, -height * 0.2);
                 }
                 else{
-                    playerVelocity = playerVelocity.add(0, -height *0.08);
+                    velocity = velocity.add(0, -height *0.08);
                 }
             }
 

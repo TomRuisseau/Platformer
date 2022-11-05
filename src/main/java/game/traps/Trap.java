@@ -1,14 +1,14 @@
 package game.traps;
 
 
-import game.Level;
 import javafx.scene.*;
-import game.Game;
+import javafx.scene.layout.Pane;
 
 
 public abstract class Trap {
-    public Node node;
+    Node node;
 
-    public abstract void updateTrap(Level level);
-        public abstract void reset(Game game);
+    public abstract boolean updateTrap(long time, Node playerNode);
+    public abstract void reset();
+    public abstract void addNodesToRoot(Pane gameRoot);
 }
