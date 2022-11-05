@@ -13,8 +13,10 @@ public class Main extends Application {
 
 
     public void start(Stage primaryStage) {
+        //creating the scene
+
         Scene scene = new Scene(controler.getDisplayAppRoot());
-        scene.setCursor(Cursor.NONE);
+        scene.setCursor(Cursor.NONE); //hiding the cursor
         Controler.createListeners(scene);
         primaryStage.setTitle("Platformer Test");
         primaryStage.setScene(scene);
@@ -23,13 +25,14 @@ public class Main extends Application {
 
         controler.initContent(primaryStage);
 
-
+        //updating 60 ticks by seconds
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 controler.update();
             }
         };
+
         timer.start();
     }
 

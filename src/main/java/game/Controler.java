@@ -8,10 +8,13 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Controler {
+    //map containing the info wether each key is pressed or not
     private static final HashMap<KeyCode, Boolean> keys = new HashMap<>();
 
+    //model
     private final Game game;
 
+    //view
     private final Display display;
 
     private float screenHeight;
@@ -25,88 +28,109 @@ public class Controler {
         return display.getAppRoot();
     }
 
+    public boolean isPressed(KeyCode key){
+        return keys.getOrDefault(key,false);
+    }
+
+    //method creating listeners on keys
     public static void createListeners(Scene scene){
+        //setting the value of each map value to true when its right key is pressed and to false when it's released
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         scene.setOnKeyReleased(event -> keys.put(event.getCode(), false));
     }
 
+    //initializing all content
     public void initContent(Stage primaryStage){
+        //determining the size of the user screen
         float screenWidth = (float) primaryStage.getWidth();
         screenHeight = (float) primaryStage.getHeight();
 
+        //initializing graphic content
         display.initGraphism(screenWidth, screenHeight);
+
+        //initializing game content
         game.initGame(screenWidth, screenHeight);
 
+        //grouping all roots together
         display.addAllToRoot(game.getGameRoot());
     }
 
+    //function called every tick to update all infos
     public void update(){
         game.updateTimes();
 
-        if(game.getRespawnTime() > 30){
+        if(game.getRespawnTime() > 30){//prevent player from moving right after respawning
+
             if ((isPressed(KeyCode.Z) || isPressed(KeyCode.SPACE) )) {
                 game.makePlayerJump();
             }
-            else {
+            else {//prevent player from jumping when mid air or double jumping
                 game.preventPlayerFromJumping();
             }
 
+            //if user wants to move left, we add velocity to the right unltil a max velocity
+            //if not, we substract velocity to simulate friction
             if (isPressed(KeyCode.Q) &&  game.getPlayerVelocity().getX() > -game.getPlayerWidth() * 0.2) {
                 game.addToPlayerVelocity(-game.getPlayerWidth() * 0.015, 0);
             }
             else if(game.getPlayerVelocity().getX() < 0){
-                if(game.playerTouchingGround()){//friction au sol
+                if(game.playerTouchingGround()){//friction on the ground
                     game.addToPlayerVelocity(game.getPlayerWidth()* 0.25 * 0.05, 0);
 
-                    if(game.getPlayerVelocity().getX() > 0){//empeche la friction de causer un demi tour
+                    if(game.getPlayerVelocity().getX() > 0){//prevent friction from forcing player to make a U turn
                         game.addToPlayerVelocity(-game.getPlayerVelocity().getX(), 0);
                     }
                 }
-                else{//friction dans l'air
+                else{//friction in the air
                     game.addToPlayerVelocity(game.getPlayerWidth() * 0.25 * 0.02, 0);
                 }
             }
 
-
+            //if user wants to move right, we add velocity to the right unltil a max velocity
+            //if not, we substract velocity to simulate friction
             if (isPressed(KeyCode.D) &&  game.getPlayerVelocity().getX() < game.getPlayerWidth() * 0.2) {
                 game.addToPlayerVelocity(game.getPlayerWidth()* 0.015, 0);
             }
             else if( game.getPlayerVelocity().getX() > 0){
-                if(game.playerTouchingGround()){//friction au sol
+                if(game.playerTouchingGround()){//friction on the ground
                     game.addToPlayerVelocity(-game.getPlayerWidth()* 0.25 * 0.05, 0);
 
-                    if(game.getPlayerVelocity().getX() < 0){//empeche la friction de causer un demi tour
+                    if(game.getPlayerVelocity().getX() < 0){//prevent friction from forcing player to make a U turn
                         game.addToPlayerVelocity(-game.getPlayerVelocity().getX(), 0);
                     }
                 }
-                else{//friction dans l'air
+                else{//friction in the air
                     game.addToPlayerVelocity(-game.getPlayerWidth() * 0.25 * 0.02, 0);
                 }
             }
 
+            //adding downard velocity every tick to simulatre gravity
             if (game.getPlayerVelocity().getY()  < game.getPlayerHeight() * 0.3 && !game.playerCanJump()){
                 game.addToPlayerVelocity(0, game.getPlayerHeight() * 0.03);
             }
 
+            //make player move depending on its velocity
             game.makePlayerMoveX();
             game.makePlayerMoveY();
         }
 
+        //restart the game when R is pressed
         if(isPressed((KeyCode.R))){
             game.restart(screenHeight);
         }
 
+        //restart the game if the player falls below the screen
         if(game.getPlayerNode().getTranslateY() >= game.getLevelHeight()){
             game.restart(screenHeight);
         }
 
+        //update the traps every tick
+        //it also checks if player is colliding with them
         game.updateTraps(screenHeight);
 
     }
 
-    public boolean isPressed(KeyCode key){
-        return keys.getOrDefault(key,false);
-    }
+
 
 
 }

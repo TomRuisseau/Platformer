@@ -6,7 +6,10 @@ import javafx.scene.Node;
 import java.util.ArrayList;
 
 public class Level {
+    //array containing nodes of the platforms
     private final ArrayList<Node> platforms;
+
+    //array containing the traps
     private final ArrayList<Trap> traps;
 
     private float width;
@@ -67,8 +70,11 @@ public class Level {
         return platforms;
     }
 
+
+    //updating all traps at once, and returning wether the player is colliding with a trap or not
     public boolean updateTraps(long time, Node playerNode){
         for(Trap trap : traps ){
+            //updating the trap and checking if player is colliding with it
             if(trap.updateTrap(time, playerNode)){
                 return true;
             }

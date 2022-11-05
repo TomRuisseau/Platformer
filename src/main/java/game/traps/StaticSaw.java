@@ -23,6 +23,7 @@ public class StaticSaw extends Trap {
         gameRoot.getChildren().add(node);
     }
 
+    //this trap is static so it only update the srpite and check if player should respawn
     public boolean updateTrap(long time, Node playerNode){
         return playerNode.getBoundsInParent().intersects(node.getBoundsInParent());
         //update the sprite

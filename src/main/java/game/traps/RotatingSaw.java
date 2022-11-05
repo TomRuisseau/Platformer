@@ -10,22 +10,27 @@ import javafx.scene.transform.Rotate;
 
 
 public class RotatingSaw extends Trap{
+    //rotation radius
     public float radius;
 
+    //rotation center
     public Point2D center;
 
+    //link of rotation
     public Rectangle rectangleSaw = new Rectangle();
 
 
     public float x;
     public float y;
 
+    //total rotation
     public double sumRota = 0 ;
 
     public RotatingSaw(float x, float y, float platformHeight) {
         this.x = x;
         this.y = y;
 
+        //creating the saw
         radius = platformHeight;
         center = new Point2D(x,y);
         Circle trap = new Circle(platformHeight * 0.6);
@@ -33,6 +38,8 @@ public class RotatingSaw extends Trap{
         trap.setTranslateY(y - radius);
         trap.setFill(Color.DARKGREEN);
 
+
+        //creating the link
         float length = (float) Math.sqrt(Math.pow(trap.getTranslateX()-center.getX(),2)+ Math.sqrt(Math.pow(trap.getTranslateY()-center.getY(),2)));
 
         rectangleSaw.setWidth((length*1.5));
@@ -56,10 +63,11 @@ public class RotatingSaw extends Trap{
 
     public boolean updateTrap(long time, Node playerNode) {
 
-
+        //make the saw translate in a circle shape along the time
         node.setTranslateX(center.getX() + radius * Math.cos(time / (float)60));
         node.setTranslateY(center.getY() + radius * Math.sin(time / (float)60));
 
+        //make the link rotate at the same speed
         rectangleSaw.getTransforms().add(new Rotate(0.955,center.getX(),center.getY()));
         sumRota = sumRota + 0.955;
 
@@ -67,6 +75,7 @@ public class RotatingSaw extends Trap{
     }
 
     public void reset(){
+        //replace the saw and the link at their initial position and rotation
         node.setTranslateX(x);
         node.setTranslateY(y - radius);
 
