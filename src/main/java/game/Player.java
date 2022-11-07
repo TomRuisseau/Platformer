@@ -129,6 +129,7 @@ public class Player {
                     else{//if player intersect a platfom while moving up, it means its a "ceiling"
                             //we delete y velocity if player hit its head, to simulate collision
                             velocity = velocity.add(0,- velocity.getY());
+                            canJump = false;
                     }
 
                     //canceling last movement
