@@ -6,6 +6,8 @@ import game.traps.StaticSaw;
 import game.traps.Trap;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.paint.Color;
@@ -200,6 +202,20 @@ public class Game {
 
     //methode used to create a single platform
     //parameters are its position, size and color
+    public Node createPlayer(float x, float y, float w, float h){
+
+        Image img = new Image("C:\\Users\\Administrateur\\Documents\\GitHub\\Platformer\\data\\Capture1.PNG");
+        ImageView imgView = new ImageView();
+        imgView.setImage(img);
+        imgView.setFitHeight((double)h);
+        imgView.setFitWidth((double)w);
+
+        imgView.setTranslateX(x);
+        imgView.setTranslateY(y);
+
+        gameRoot.getChildren().add(imgView);
+        return imgView;
+    }
     public Node createPlatform(float x, float y, float w, float h, Color color){
         //creating the node
         Rectangle entity = new Rectangle(w,h);
