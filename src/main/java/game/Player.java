@@ -16,6 +16,7 @@ public class Player {
 
     private boolean isTouchingGround = false;
 
+
     public Node getNode() {
         return node;
     }
@@ -48,6 +49,8 @@ public class Player {
     public boolean isTouchingGround() {
         return isTouchingGround;
     }
+
+
 
     //getting the player infos
     public void initPlayer(Node node, float platformWidth, float platformHeight, float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){

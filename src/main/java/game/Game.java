@@ -24,6 +24,7 @@ public class Game {
     private long time = 0;
 
     private long respawnTime = 0;
+
     public Game() {
 
         this.player = new Player();
@@ -86,8 +87,16 @@ public class Game {
         player.moveY((int)getPlayerVelocity().getY(), level);
     }
 
+    public void isTouchingDoor(){
+        Node node = level.getDoor();
+        if(getPlayerNode().getBoundsInParent().intersects(node.getBoundsInParent())){
+            System.out.println("gagné");
+        }
+    }
+
     //make level update all traps, and restarting the game if player is colliding with one of them
     public void updateTraps(float screenHeight){
+        isTouchingDoor();
         if(level.updateTraps(time, player.getNode())){
             restart(screenHeight);
         }
@@ -180,6 +189,10 @@ public class Game {
                         newLaser.addNodesToRoot(gameRoot);
                         level.addTrap(newLaser);
                         break;
+                    case '4' : //if 4, create a door
+                        Node myDoor = level.newDoor(j*level.getPlatformWidth(),i*level.getPlatformHeight(),level.getPlatformWidth(),level.getPlatformHeight()*2);
+                        gameRoot.getChildren().add(myDoor);
+
                 }
             }
         }

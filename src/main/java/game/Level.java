@@ -2,7 +2,8 @@ package game;
 
 import game.traps.Trap;
 import javafx.scene.Node;
-
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 
 public class Level {
@@ -11,6 +12,9 @@ public class Level {
 
     //array containing the traps
     private final ArrayList<Trap> traps;
+
+    //door for next level
+    private Node door;
 
     private float width;
     private float height;
@@ -68,6 +72,21 @@ public class Level {
 
     public ArrayList<Node> getPlatforms() {
         return platforms;
+    }
+
+    public Node getDoor(){
+        return door;
+    }
+
+    public Node newDoor(float x,float y,float width, float height) {
+        Rectangle myDoor = new Rectangle();
+        myDoor.setWidth(width);
+        myDoor.setHeight(height);
+        myDoor.setTranslateX(x);
+        myDoor.setTranslateY(y);
+        myDoor.setFill(Color.DARKGREEN);
+        this.door = myDoor;
+        return myDoor;
     }
 
 
