@@ -123,12 +123,11 @@ public class Game {
         initTraps();
 
         //creating player node .6 time smaller than a platform and placing it
-        Node playerNode = createPlatform(
+        Node playerNode = createPlayer(
                 level.getPlatformWidth(),
                 level.getHeight() -level.getPlatformHeight() - level.getPlatformHeight() * (float)0.6 - 1,
                 level.getPlatformWidth() * (float)0.6 ,
-                level.getPlatformHeight() * (float)0.6,
-                Color.CORNFLOWERBLUE);
+                level.getPlatformHeight() * (float)0.6);
 
         //initializing infos of the player
         player.initPlayer(playerNode,
@@ -204,7 +203,7 @@ public class Game {
     //parameters are its position, size and color
     public Node createPlayer(float x, float y, float w, float h){
 
-        Image img = new Image("C:\\Users\\Administrateur\\Documents\\GitHub\\Platformer\\data\\Capture1.PNG");
+        Image img = new Image("File:data/squarePink.jpg");
         ImageView imgView = new ImageView();
         imgView.setImage(img);
         imgView.setFitHeight((double)h);
