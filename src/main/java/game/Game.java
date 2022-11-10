@@ -199,8 +199,8 @@ public class Game {
         }
     }
 
-    //methode used to create a single platform
-    //parameters are its position, size and color
+    //methode used to create the palyer node
+    //parameters are its position and size
     public Node createPlayer(float x, float y, float w, float h){
 
         Image img = new Image("File:data/squarePink.jpg");
@@ -215,6 +215,9 @@ public class Game {
         gameRoot.getChildren().add(imgView);
         return imgView;
     }
+
+    //methode used to create a single platform
+    //parameters are its position, size and color
     public Node createPlatform(float x, float y, float w, float h, Color color){
         //creating the node
         Rectangle entity = new Rectangle(w,h);
