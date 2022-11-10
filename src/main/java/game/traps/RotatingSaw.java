@@ -7,21 +7,23 @@ import javafx.scene.shape.Circle;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
-
+import java.util.Random;
 
 public class RotatingSaw extends Trap{
     //rotation radius
-    public float radius;
+    private final float radius;
 
     //rotation center
-    public Point2D center;
+    private final Point2D center;
+
+    private int dephasing;
 
     //link of rotation
-    public Rectangle rectangleSaw = new Rectangle();
+    //public Rectangle rectangleSaw = new Rectangle();
 
 
-    public float x;
-    public float y;
+    private float x;
+    private float y;
 
     //total rotation
     public double sumRota = 0 ;
@@ -33,43 +35,48 @@ public class RotatingSaw extends Trap{
         //creating the saw
         radius = platformHeight;
         center = new Point2D(x,y);
+
         Circle trap = new Circle(platformHeight * 0.6);
         trap.setTranslateX(x);
         trap.setTranslateY(y - radius);
         trap.setFill(Color.DARKGREEN);
 
+        //generating a random dephasing for the saw
+        Random rand = new Random();
+        dephasing = rand.nextInt(100);
+
 
         //creating the link
-        float length = (float) Math.sqrt(Math.pow(trap.getTranslateX()-center.getX(),2)+ Math.sqrt(Math.pow(trap.getTranslateY()-center.getY(),2)));
+        //float length = (float) Math.sqrt(Math.pow(trap.getTranslateX()-center.getX(),2)+ Math.sqrt(Math.pow(trap.getTranslateY()-center.getY(),2)));
 
-        rectangleSaw.setWidth((length*1.5));
-        rectangleSaw.setHeight(platformHeight);
+        //rectangleSaw.setWidth((length*1.5));
+        //rectangleSaw.setHeight(platformHeight);
 
-        rectangleSaw.setX(trap.getTranslateX()- 0.5*rectangleSaw.getWidth());
-        rectangleSaw.setY(trap.getTranslateY() - 0.5*rectangleSaw.getWidth());
-        rectangleSaw.setFill(Color.PINK);
+        //rectangleSaw.setX(trap.getTranslateX()- 0.5*rectangleSaw.getWidth());
+        //rectangleSaw.setY(trap.getTranslateY() - 0.5*rectangleSaw.getWidth());
+        //rectangleSaw.setFill(Color.PINK);
 
 
         this.node = trap;
 
-        rectangleSaw.getTransforms().add(new Rotate(90, center.getX(), center.getY()));
+        //rectangleSaw.getTransforms().add(new Rotate(90, center.getX(), center.getY()));
     }
 
     @Override
     public void addNodesToRoot(Pane gameRoot) {
         gameRoot.getChildren().add(node);
-        gameRoot.getChildren().add(rectangleSaw);
+        //gameRoot.getChildren().add(rectangleSaw);
     }
 
     public boolean updateTrap(long time, Node playerNode) {
 
         //make the saw translate in a circle shape along the time
-        node.setTranslateX(center.getX() + radius * Math.cos(time / (float)60));
-        node.setTranslateY(center.getY() + radius * Math.sin(time / (float)60));
+        node.setTranslateX(center.getX() + radius * Math.cos((time / (float)30) + dephasing));
+        node.setTranslateY(center.getY() + radius * Math.sin((time / (float)30) + dephasing));
 
         //make the link rotate at the same speed
-        rectangleSaw.getTransforms().add(new Rotate(0.955,center.getX(),center.getY()));
-        sumRota = sumRota + 0.955;
+        //rectangleSaw.getTransforms().add(new Rotate(0.955,center.getX(),center.getY()));
+        //sumRota = sumRota + 0.955;
 
         return playerNode.getBoundsInParent().intersects(node.getBoundsInParent());
     }
@@ -80,9 +87,9 @@ public class RotatingSaw extends Trap{
         node.setTranslateY(y - radius);
 
 
-        rectangleSaw.getTransforms().add(new Rotate(-sumRota, center.getX(), center.getY()));
+        //rectangleSaw.getTransforms().add(new Rotate(-sumRota, center.getX(), center.getY()));
         
-        sumRota = 0;
+        //sumRota = 0;
 
     }
 }

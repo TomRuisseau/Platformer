@@ -7,12 +7,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.*;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Random;
+
 
 public class Laser extends Trap{
 
     //laser part used as the hitbox
     public Node laserNode;
-    public int deSync;
+    private int dephasing;
 
     public float x;
     public float y;
@@ -32,6 +34,10 @@ public class Laser extends Trap{
         laser.setFill(Color.HOTPINK);
         this.laserNode = laser;
 
+        //generating a random dephasing for the laser
+        Random rand = new Random();
+        dephasing = rand.nextInt(100);
+
 
     }
 
@@ -43,7 +49,7 @@ public class Laser extends Trap{
 
     public boolean updateTrap(long time, Node playerNode) {
         //make the laser appaear or disappaer every 2 seconds
-        if ((time % 120 == 0)){
+        if (((time + dephasing) % 120 == 0)){
             laserNode.setVisible(!laserNode.isVisible());
         }
         //check if the player is touching the laser

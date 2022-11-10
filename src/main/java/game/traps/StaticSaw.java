@@ -6,8 +6,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class StaticSaw extends Trap {
-    public float x;
-    public float y;
+    private float x;
+    private float y;
     public StaticSaw(float x, float y, float platformHeight) {
         this.x = x;
         this.y = y;

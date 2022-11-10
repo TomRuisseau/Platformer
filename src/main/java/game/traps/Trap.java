@@ -7,7 +7,7 @@ import javafx.scene.layout.Pane;
 
 public abstract class Trap {
     //main node of the trap, usally used as the hitbox
-    Node node;
+    protected Node node;
 
     //method to update trap position and sprite
     //and at the same time check if player is in the trap or not
