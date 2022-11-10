@@ -74,16 +74,7 @@ public class Controler {
                 game.addToPlayerVelocity(-game.getPlayerWidth() * 0.015, 0);
             }
             else if(game.getPlayerVelocity().getX() < 0){
-                if(game.playerTouchingGround()){//friction on the ground
-                    game.addToPlayerVelocity(game.getPlayerWidth()* 0.25 * 0.05, 0);
-
-                    if(game.getPlayerVelocity().getX() > 0){//prevent friction from forcing player to make a U turn
-                        game.addToPlayerVelocity(-game.getPlayerVelocity().getX(), 0);
-                    }
-                }
-                else{//friction in the air
-                    game.addToPlayerVelocity(game.getPlayerWidth() * 0.25 * 0.02, 0);
-                }
+                game.frictionLeft();
             }
 
             //if user wants to move right, we add velocity to the right unltil a max velocity
@@ -92,22 +83,12 @@ public class Controler {
                 game.addToPlayerVelocity(game.getPlayerWidth()* 0.015, 0);
             }
             else if( game.getPlayerVelocity().getX() > 0){
-                if(game.playerTouchingGround()){//friction on the ground
-                    game.addToPlayerVelocity(-game.getPlayerWidth()* 0.25 * 0.05, 0);
-
-                    if(game.getPlayerVelocity().getX() < 0){//prevent friction from forcing player to make a U turn
-                        game.addToPlayerVelocity(-game.getPlayerVelocity().getX(), 0);
-                    }
-                }
-                else{//friction in the air
-                    game.addToPlayerVelocity(-game.getPlayerWidth() * 0.25 * 0.02, 0);
-                }
+                game.frictionRight();
             }
 
             //adding downard velocity every tick to simulatre gravity
-            if (game.getPlayerVelocity().getY()  < game.getPlayerHeight() * 0.3 && !game.playerCanJump()){
-                game.addToPlayerVelocity(0, game.getPlayerHeight() * 0.03);
-            }
+            game.gravity();
+
 
             //make player move depending on its velocity
             game.makePlayerMoveX();
@@ -120,9 +101,7 @@ public class Controler {
         }
 
         //restart the game if the player falls below the screen
-        if(game.getPlayerNode().getTranslateY() >= game.getLevelHeight()){
-            game.restart(screenHeight);
-        }
+        game.isPlayerOutOfScreen(screenHeight);
 
         //update the traps every tick
         //it also checks if player is colliding with them

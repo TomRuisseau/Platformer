@@ -264,4 +264,41 @@ public class Game {
 
     }
 
+    void frictionLeft(){
+        if(this.playerTouchingGround()){//friction on the ground
+            this.addToPlayerVelocity(this.getPlayerWidth()* 0.25 * 0.05, 0);
+
+            if(this.getPlayerVelocity().getX() > 0){//prevent friction from forcing player to make a U turn
+                this.addToPlayerVelocity(-this.getPlayerVelocity().getX(), 0);
+            }
+        }
+        else{//friction in the air
+            this.addToPlayerVelocity(this.getPlayerWidth() * 0.25 * 0.02, 0);
+        }
+    }
+
+    void frictionRight(){
+        if(this.playerTouchingGround()){//friction on the ground
+            this.addToPlayerVelocity(-this.getPlayerWidth()* 0.25 * 0.05, 0);
+
+            if(this.getPlayerVelocity().getX() < 0){//prevent friction from forcing player to make a U turn
+                this.addToPlayerVelocity(-this.getPlayerVelocity().getX(), 0);
+            }
+        }
+        else{//friction in the air
+            this.addToPlayerVelocity(-this.getPlayerWidth() * 0.25 * 0.02, 0);
+        }
+    }
+
+    void gravity(){
+        if (this.getPlayerVelocity().getY()  < this.getPlayerHeight() * 0.3 && !this.playerCanJump()){
+            this.addToPlayerVelocity(0, this.getPlayerHeight() * 0.03);
+        }
+    }
+
+    void isPlayerOutOfScreen(float screenHeight){
+        if(this.getPlayerNode().getTranslateY() >= this.getLevelHeight()){
+            this.restart(screenHeight);
+        }
+    }
 }
