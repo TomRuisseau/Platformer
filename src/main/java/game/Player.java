@@ -10,6 +10,8 @@ public class Player {
     //velocity of the character, decomposed between x and y value
     private Point2D velocity = new Point2D(0,0);
 
+    private Point2D position = new Point2D(0,0);
+
     private float width;
     private float height;
     private boolean canJump = true;
@@ -28,6 +30,12 @@ public class Player {
     public void addVelocity(double x, double y){
        velocity = velocity.add(x,y);
     }
+
+    public Point2D getPosition(){return position;}
+
+    public void setPosition(Point2D position){this.position = position;}
+    public void addPostition(double x, double y){position = position.add(x, y);}
+
 
     public float getWidth() {
         return width;
@@ -55,6 +63,7 @@ public class Player {
     //getting the player infos
     public void initPlayer(Node node, float platformWidth, float platformHeight, float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
         this.node = node;
+        this.position.add(node.getTranslateX(), node.getTranslateY());
         width = platformWidth * (float)0.6;
         height = platformHeight * (float)0.6;
         //creating listeners used for the player
