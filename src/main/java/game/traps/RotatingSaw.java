@@ -33,7 +33,7 @@ public class RotatingSaw extends Trap{
         this.y = y;
 
         //creating the saw
-        radius = platformHeight;
+        radius = platformHeight * (float)1.8;
         center = new Point2D(x,y);
 
         Circle trap = new Circle(platformHeight * 0.6);
@@ -71,8 +71,8 @@ public class RotatingSaw extends Trap{
     public boolean updateTrap(long time, Node playerNode) {
 
         //make the saw translate in a circle shape along the time
-        node.setTranslateX(center.getX() + radius * Math.cos((time / (float)30) + dephasing));
-        node.setTranslateY(center.getY() + radius * Math.sin((time / (float)30) + dephasing));
+        node.setTranslateX(center.getX() + radius * Math.cos((time / (float)20) + dephasing));
+        node.setTranslateY(center.getY() + radius * Math.sin((time / (float)20) + dephasing));
 
         //make the link rotate at the same speed
         //rectangleSaw.getTransforms().add(new Rotate(0.955,center.getX(),center.getY()));

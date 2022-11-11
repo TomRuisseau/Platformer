@@ -49,7 +49,7 @@ public class Laser extends Trap{
 
     public boolean updateTrap(long time, Node playerNode) {
         //make the laser appaear or disappaer every 2 seconds
-        if (((time + dephasing) % 120 == 0)){
+        if (((time + dephasing) % 80 == 0)){
             laserNode.setVisible(!laserNode.isVisible());
         }
         //check if the player is touching the laser
