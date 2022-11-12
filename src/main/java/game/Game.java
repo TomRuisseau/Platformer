@@ -23,6 +23,8 @@ public class Game {
 
     //object used to read the files and containing all the read datas
     private LevelData levelData;
+
+    private int deathCount = 0;
     private long time = 0;
 
     private long respawnTime = 0;
@@ -88,6 +90,10 @@ public class Game {
     public void makePlayerMoveY(){
         player.moveY((int)getPlayerVelocity().getY(), level);
     }
+
+    public int getDeathCount(){return deathCount;}
+
+    public void addToDeathCount(int nbr){deathCount += nbr;}
 
     public void isTouchingDoor(){
         Node node = level.getDoor();
@@ -248,6 +254,7 @@ public class Game {
         //reset timers
         time = 0;
         respawnTime = 0;
+        deathCount++;
 
         //replacing the player at the spawn point
         getPlayerNode().setTranslateX(level.getPlatformWidth());

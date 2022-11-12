@@ -98,6 +98,7 @@ public class Controler {
         //restart the game when R is pressed
         if(isPressed((KeyCode.R))){
             game.restart(screenHeight);
+            game.addToDeathCount(-1);
         }
 
         //restart the game if the player falls below the screen
@@ -106,6 +107,9 @@ public class Controler {
         //update the traps every tick
         //it also checks if player is colliding with them
         game.updateTraps(screenHeight);
+
+        //update ui text
+        display.setDeathCount(game.getDeathCount());
 
     }
 
