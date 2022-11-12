@@ -93,6 +93,8 @@ public class Game {
 
     public void addToDeathCount(int nbr){deathCount += nbr;}
 
+    public float getPlayerSpriteRotate(){return player.getSpriteRotate();}
+
     public void isTouchingDoor(){
         Node node = level.getDoor();
         if(getPlayerNode().getBoundsInParent().intersects(node.getBoundsInParent())){

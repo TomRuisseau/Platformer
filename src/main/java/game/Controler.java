@@ -111,7 +111,7 @@ public class Controler {
         //update ui text
         display.setDeathCount(game.getDeathCount());
 
-        display.updatePlayerSprite(game.getPlayerNode());
+        display.updatePlayerSprite(game.getPlayerNode(), game.getPlayerSpriteRotate());
 
     }
 

@@ -55,9 +55,10 @@ public class Display {
         deathCount.setText("Death : " + deathNumbr);
     }
 
-    public void updatePlayerSprite(Node player){
+    public void updatePlayerSprite(Node player, float rotate){
         playerSprite.setTranslateX(player.getTranslateX());
         playerSprite.setTranslateY(player.getTranslateY());
+        playerSprite.setRotate(rotate);
     }
 
     //adding all roots to the bottom one which is appRoot

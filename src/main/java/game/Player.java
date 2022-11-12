@@ -18,6 +18,8 @@ public class Player {
 
     private boolean isTouchingGround = false;
 
+    private float spriteRotate = 0;
+
 
     public Node getNode() {
         return node;
@@ -58,7 +60,7 @@ public class Player {
         return isTouchingGround;
     }
 
-
+    public float getSpriteRotate(){return spriteRotate;}
 
     //getting the player infos
     public void initPlayer(Node node, float platformWidth, float platformHeight, float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
@@ -103,12 +105,14 @@ public class Player {
         for (int i = 0; i < Math.abs(value); i++){
             //make player move one pixel
             node.setTranslateX(node.getTranslateX() + (movingRight ? 1 : -1));
+            spriteRotate += (movingRight ? 1 : -1) * 1.5;
 
             for (Node platform : level.getPlatforms()){//browsing all platforms
                 if(node.getBoundsInParent().intersects(platform.getBoundsInParent()) || node.getTranslateX() < 0 || node.getTranslateX() + width > level.getWidth()){
                     //if player intersect with a platfoms, we cancel the last movement and exit the function
                     //this system simumate collisions
                     node.setTranslateX(node.getTranslateX() + (!movingRight ? 1 : -1));
+                    spriteRotate += (!movingRight ? 1 : -1) * 1.5;
                     return;
                 }
             }
