@@ -52,7 +52,7 @@ public class Controler {
         game.initGame(screenWidth, screenHeight);
 
         //grouping all roots together
-        display.addAllToRoot(game.getGameRoot());
+        display.addAllToRoot(game.getGameRoot(), game.getPlayerWidth(), game.getPlayerHeight());
     }
 
     //function called every tick to update all infos
@@ -110,6 +110,8 @@ public class Controler {
 
         //update ui text
         display.setDeathCount(game.getDeathCount());
+
+        display.updatePlayerSprite(game.getPlayerNode());
 
     }
 

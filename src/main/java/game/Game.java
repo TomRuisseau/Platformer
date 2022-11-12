@@ -6,8 +6,6 @@ import game.traps.StaticSaw;
 import game.traps.Trap;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.paint.Color;
@@ -115,7 +113,7 @@ public class Game {
 
         //choosing the ration to decide how much of the level shows on screen
         level.setWidth(screenWidth * (float)3);
-        level.setHeight(screenHeight * (float)1.5);
+        level.setHeight(screenHeight * (float)1.75);
 
         //finding the proportional size of platforms to fill the level
         level.setPlatformWidth(((float)1/((float)LevelData.getLevelDataWidth())) * level.getWidth());
@@ -208,18 +206,25 @@ public class Game {
     //methode used to create the palyer node
     //parameters are its position and size
     public Node createPlayer(float x, float y, float w, float h){
+          Rectangle player = new Rectangle(w,h);
+          player.setTranslateX(x);
+          player.setTranslateY(y);
+          player.setFill(Color.rgb(0,0,255,0));
 
-        Image img = new Image("File:data/squarePink.jpg");
-        ImageView imgView = new ImageView();
-        imgView.setImage(img);
-        imgView.setFitHeight((double)h);
-        imgView.setFitWidth((double)w);
+          gameRoot.getChildren().add(player);
+          return player;
 
-        imgView.setTranslateX(x);
-        imgView.setTranslateY(y);
-
-        gameRoot.getChildren().add(imgView);
-        return imgView;
+//        Image img = new Image("File:data/squarePink.jpg");
+//        ImageView imgView = new ImageView();
+//        imgView.setImage(img);
+//        imgView.setFitHeight((double)h);
+//        imgView.setFitWidth((double)w);
+//
+//        imgView.setTranslateX(x);
+//        imgView.setTranslateY(y);
+//
+//        gameRoot.getChildren().add(imgView);
+//        return imgView;
     }
 
     //methode used to create a single platform

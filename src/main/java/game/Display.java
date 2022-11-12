@@ -1,9 +1,13 @@
 package game;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 public class Display {
     //root cotaining every other one, the one we show
     private final Pane appRoot = new Pane();
@@ -14,6 +18,9 @@ public class Display {
     private Rectangle backGround;
 
     private Text deathCount;
+
+    private ImageView playerSprite;
+
 
 
     public Display() {
@@ -37,15 +44,28 @@ public class Display {
         text.setFill(Color.CADETBLUE);
         deathCount = text;
         uiRoot.getChildren().add(text);
+
+        Image img = new Image("File:data/hamster-round.png");
+        ImageView imgView = new ImageView();
+        imgView.setImage(img);
+        playerSprite = imgView;
     }
 
     public void setDeathCount(int deathNumbr){
         deathCount.setText("Death : " + deathNumbr);
     }
 
+    public void updatePlayerSprite(Node player){
+        playerSprite.setTranslateX(player.getTranslateX());
+        playerSprite.setTranslateY(player.getTranslateY());
+    }
+
     //adding all roots to the bottom one which is appRoot
-    public void addAllToRoot(Pane gameRoot){
-       appRoot.getChildren().addAll(backGround,gameRoot, uiRoot);
+    public void addAllToRoot(Pane gameRoot, float w, float h){
+        playerSprite.setFitHeight((double)h);
+        playerSprite.setFitWidth((double)w);
+        gameRoot.getChildren().add(playerSprite);
+        appRoot.getChildren().addAll(backGround,gameRoot, uiRoot);
     }
 
 }
