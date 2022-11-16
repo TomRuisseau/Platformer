@@ -59,4 +59,9 @@ public class Laser extends Trap{
     public void reset(){
 
     }
+
+    @Override
+    public double getSawRadius() {
+        return 0;
+    }
 }

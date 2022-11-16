@@ -8,13 +8,22 @@ import javafx.scene.shape.Circle;
 public class StaticSaw extends Trap {
     private float x;
     private float y;
+
+
+    private double sawRadius;
+
+    public double getSawRadius() {
+        return sawRadius;
+    }
+
     public StaticSaw(float x, float y, float platformHeight) {
         this.x = x;
         this.y = y;
+        sawRadius = platformHeight * 0.6;
         Circle trap = new Circle(platformHeight * 0.6);
         trap.setTranslateX(x);
         trap.setTranslateY(y);
-        trap.setFill(Color.RED);
+        trap.setFill(Color.rgb(0,0,0,0));
         node = trap;
     }
 

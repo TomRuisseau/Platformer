@@ -12,6 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
+
 public class Game {
     private final Player player;
     private final Level  level;
@@ -97,6 +99,8 @@ public class Game {
     public void addToDeathCount(int nbr){deathCount += nbr;}
 
     public void setLevelBack(ImageView back){player.setBack(back);}
+
+    public ArrayList<Trap> getTrapList(){return level.getTraps();};
 
     public float getPlayerSpriteRotate(){return player.getSpriteRotate();}
 

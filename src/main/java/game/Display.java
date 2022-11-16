@@ -1,5 +1,7 @@
 package game;
 
+import game.traps.Laser;
+import game.traps.Trap;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -7,6 +9,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.util.ArrayList;
 
 public class Display {
     //root cotaining every other one, the one we show
@@ -21,6 +25,7 @@ public class Display {
 
     private ImageView playerSprite;
 
+    private ArrayList<ImageView> trapsSprites = new ArrayList<>();
 
 
     public Display() {
@@ -32,7 +37,7 @@ public class Display {
     }
 
     //create graphic elements of the background and the ui
-    public void initGraphism(float screenWidth, float screenHeight, float playerWidth, float playerHeight, float levelWidth, float levelHeight) {
+    public void initGraphism(float screenWidth, float screenHeight, float playerWidth, float playerHeight, float levelWidth, float levelHeight, ArrayList<Trap> traps) {
         //creating background
         Image backTiles = new Image("File:src/main/ressources/images/Tiles.png");
         ImageView backTilesView = new ImageView();
@@ -64,6 +69,22 @@ public class Display {
         playerSprite.setFitHeight((double)playerHeight);
         playerSprite.setFitWidth((double)playerWidth);
 
+        //creating sprites for the traps
+        for (Trap trap : traps){
+            if(trap instanceof Laser){
+                trapsSprites.add(new ImageView());
+            }
+            else{
+                Image trapImage = new Image("File:src/main/ressources/images/static_saw.png");
+                ImageView trapSprite = new ImageView();
+                trapSprite.setImage(trapImage);
+                trapSprite.setFitHeight(trap.getSawRadius() * 2);
+                trapSprite.setFitWidth(trap.getSawRadius() * 2);
+                trapsSprites.add(trapSprite);
+
+            }
+        }
+
     }
 
     public void setDeathCount(int deathNumbr){
@@ -74,6 +95,13 @@ public class Display {
         playerSprite.setTranslateX(player.getTranslateX());
         playerSprite.setTranslateY(player.getTranslateY());
         playerSprite.setRotate(rotate);
+    }
+
+    public void updateTrapsSprite(ArrayList<Trap> traps){
+        for (int i = 0; i < traps.size(); i++){
+            trapsSprites.get(i).setTranslateX(traps.get(i).getNode().getTranslateX() - traps.get(i).getSawRadius());
+            trapsSprites.get(i).setTranslateY(traps.get(i).getNode().getTranslateY() - traps.get(i).getSawRadius());
+        }
     }
 
     //make the backgound layout equal to the level layout
@@ -111,6 +139,9 @@ public class Display {
     //adding all roots to the bottom one which is appRoot
     public void addAllToRoot(Pane gameRoot){
         gameRoot.getChildren().add(playerSprite);
+        for (ImageView trap : trapsSprites){
+            gameRoot.getChildren().add(trap);
+        }
         appRoot.getChildren().addAll(backGround,gameRoot, uiRoot);
     }
 

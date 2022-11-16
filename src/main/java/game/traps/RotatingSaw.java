@@ -28,6 +28,12 @@ public class RotatingSaw extends Trap{
     //total rotation
     public double sumRota = 0 ;
 
+    private double sawRadius;
+
+    public double getSawRadius() {
+        return sawRadius;
+    }
+
     public RotatingSaw(float x, float y, float platformHeight) {
         this.x = x;
         this.y = y;
@@ -36,10 +42,11 @@ public class RotatingSaw extends Trap{
         radius = platformHeight * (float)1.8;
         center = new Point2D(x,y);
 
+        sawRadius = platformHeight * 0.6;
         Circle trap = new Circle(platformHeight * 0.6);
         trap.setTranslateX(x);
         trap.setTranslateY(y - radius);
-        trap.setFill(Color.DARKGREEN);
+        trap.setFill(Color.rgb(0,0,0,0));
 
         //generating a random dephasing for the saw
         Random rand = new Random();

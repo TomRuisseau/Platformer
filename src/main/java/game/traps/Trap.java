@@ -16,6 +16,10 @@ public abstract class Trap {
     //method to reset the trap at its initial postion and behaviour
     public abstract void reset();
 
+    public Node getNode(){return node;}
+
+    public abstract double getSawRadius();
+
     //method to group all part of the trap together and put them in the scene
     public abstract void addNodesToRoot(Pane gameRoot);
 }

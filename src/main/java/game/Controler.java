@@ -50,7 +50,7 @@ public class Controler {
 
 
         //initializing graphic content
-        display.initGraphism(screenWidth, screenHeight,game.getPlayerWidth(), game.getPlayerHeight(), game.getLevelWidth(), game.getLevelHeight());
+        display.initGraphism(screenWidth, screenHeight,game.getPlayerWidth(), game.getPlayerHeight(), game.getLevelWidth(), game.getLevelHeight(), game.getTrapList());
         display.createListeners(screenWidth, screenHeight, game.getGameRoot(), game.getLevelWidth(), game.getLevelHeight(), game.getPlayerNode() );
 
 
@@ -116,6 +116,9 @@ public class Controler {
 
         //replace and animate palayerSprite
         display.updatePlayerSprite(game.getPlayerNode(), game.getPlayerSpriteRotate());
+
+        //replace and animate trapSprites
+        display.updateTrapsSprite(game.getTrapList());
 
         //replace the background
         display.updateBackground(game.getGameRoot());
