@@ -45,7 +45,7 @@ public class Display {
         deathCount = text;
         uiRoot.getChildren().add(text);
 
-        Image img = new Image("File:data/hamster-round.png");
+        Image img = new Image("File:src/main/ressources/images/hamster-round.png");
         ImageView imgView = new ImageView();
         imgView.setImage(img);
         playerSprite = imgView;

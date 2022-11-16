@@ -48,7 +48,7 @@ public class LevelData {
 
 
         try {
-            FileInputStream reader = new FileInputStream("Data/Level1DataP.txt");
+            FileInputStream reader = new FileInputStream("src/main/ressources/levelText/Level1DataP.txt");
             int title;
             String s;
             //reading the char
@@ -79,7 +79,7 @@ public class LevelData {
 
 
         try {
-            FileInputStream reader = new FileInputStream("Data/Level1DataT.txt");
+            FileInputStream reader = new FileInputStream("src/main/ressources/levelText/Level1DataT.txt");
             int title;
             String s;
             //reading the char
