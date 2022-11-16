@@ -3,6 +3,7 @@ package game;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -16,6 +17,7 @@ public class Main extends Application {
         //creating the scene
 
         Scene scene = new Scene(controler.getDisplayAppRoot());
+        scene.setFill(Color.rgb(46,70,70));
         scene.setCursor(Cursor.NONE); //hiding the cursor
         Controler.createListeners(scene);
         primaryStage.setTitle("Platformer Test");
