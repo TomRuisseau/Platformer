@@ -2,6 +2,7 @@ package game;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class Player {
@@ -20,6 +21,11 @@ public class Player {
 
     private float spriteRotate = 0;
 
+    private ImageView back;
+
+    public void setBack(ImageView back) {
+        this.back = back;
+    }
 
     public Node getNode() {
         return node;
@@ -62,38 +68,19 @@ public class Player {
 
     public float getSpriteRotate(){return spriteRotate;}
 
+
+
     //getting the player infos
-    public void initPlayer(Node node, float platformWidth, float platformHeight, float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
+    public void initPlayer(Node node, float platformWidth, float platformHeight){
         this.node = node;
         this.position.add(node.getTranslateX(), node.getTranslateY());
         width = platformWidth * (float)0.6;
         height = platformHeight * (float)0.6;
         //creating listeners used for the player
-        createListeners(screenWidth, screenHeight, gameRoot, levelWidth, levelHeight);
+        //createListeners(screenWidth, screenHeight, gameRoot, levelWidth, levelHeight);
 
     }
 
-    public void createListeners(float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight){
-        //both listeners check if the player is too far from the camera center, and move it in consequence
-        //it allows auto scrollig when player is further than half of the screen
-
-
-        node.translateXProperty().addListener((obs, old, newValue) ->{
-            float offset = newValue.floatValue();
-
-            if(offset > (screenWidth /2) && offset <levelWidth - (screenWidth /2)){
-                gameRoot.setLayoutX(-(offset - (screenWidth /2)));
-            }
-        });
-
-        node.translateYProperty().addListener((obs, old, newValue) ->{
-            float offset = newValue.floatValue();
-
-            if(offset > (screenHeight /2) && offset < levelHeight - (screenHeight /2)){
-                gameRoot.setLayoutY(-(offset - (screenHeight /2)));
-            }
-        });
-    }
 
     //make player move allong the x axes
     //value parameter is usally player x velocity

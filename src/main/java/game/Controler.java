@@ -45,14 +45,17 @@ public class Controler {
         float screenWidth = (float) primaryStage.getWidth();
         screenHeight = (float) primaryStage.getHeight();
 
-        //initializing graphic content
-        display.initGraphism(screenWidth, screenHeight);
-
         //initializing game content
         game.initGame(screenWidth, screenHeight);
 
+
+        //initializing graphic content
+        display.initGraphism(screenWidth, screenHeight,game.getPlayerWidth(), game.getPlayerHeight(), game.getLevelWidth(), game.getLevelHeight());
+        display.createListeners(screenWidth, screenHeight, game.getGameRoot(), game.getLevelWidth(), game.getLevelHeight(), game.getPlayerNode() );
+
+
         //grouping all roots together
-        display.addAllToRoot(game.getGameRoot(), game.getPlayerWidth(), game.getPlayerHeight());
+        display.addAllToRoot(game.getGameRoot());
     }
 
     //function called every tick to update all infos

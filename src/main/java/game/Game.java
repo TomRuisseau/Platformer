@@ -6,6 +6,7 @@ import game.traps.StaticSaw;
 import game.traps.Trap;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.paint.Color;
@@ -81,6 +82,8 @@ public class Game {
         return level.getHeight();
     }
 
+    public float getLevelWidth(){return level.getWidth();}
+
     public void makePlayerMoveX(){
         player.moveX((int)getPlayerVelocity().getX(), level);
     }
@@ -92,6 +95,8 @@ public class Game {
     public int getDeathCount(){return deathCount;}
 
     public void addToDeathCount(int nbr){deathCount += nbr;}
+
+    public void setLevelBack(ImageView back){player.setBack(back);}
 
     public float getPlayerSpriteRotate(){return player.getSpriteRotate();}
 
@@ -138,11 +143,7 @@ public class Game {
         //initializing infos of the player
         player.initPlayer(playerNode,
                 level.getPlatformWidth(),
-                level.getPlatformHeight(),
-                screenWidth, screenHeight,
-                gameRoot,
-                level.getWidth(),
-                level.getHeight());
+                level.getPlatformHeight());
 
 
     }
