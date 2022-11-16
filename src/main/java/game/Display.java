@@ -39,6 +39,8 @@ public class Display {
         backTilesView.setImage(backTiles);
         backTilesView.setFitHeight(levelHeight);
         backTilesView.setFitWidth(levelWidth);
+        backTilesView.setLayoutX(0);
+        backTilesView.setLayoutY(-levelHeight + screenHeight);
         backGround = backTilesView;
         //backGround = new Rectangle(screenWidth , screenHeight);
 
@@ -74,6 +76,13 @@ public class Display {
         playerSprite.setRotate(rotate);
     }
 
+    //make the backgound layout equal to the level layout
+    public void updateBackground(Pane gameRoot){
+        backGround.setLayoutX(gameRoot.getLayoutX());
+        backGround.setLayoutY(gameRoot.getLayoutY());
+
+    }
+
     //observer part
     public void createListeners(float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight, Node node){
         //both listeners check if the player is too far from the camera center, and move it in consequence
@@ -85,7 +94,7 @@ public class Display {
 
             if(offset > (screenWidth /2) && offset <levelWidth - (screenWidth /2)){
                 gameRoot.setLayoutX(-(offset - (screenWidth /2)));
-                backGround.setLayoutX(-(offset - (screenWidth /2)));
+                //backGround.setLayoutX(-(offset - (screenWidth /2)));
             }
         });
 
@@ -94,7 +103,7 @@ public class Display {
 
             if(offset > (screenHeight /2) && offset < levelHeight - (screenHeight /2)){
                 gameRoot.setLayoutY(-(offset - (screenHeight /2)));
-                backGround.setLayoutY(-(offset - (screenHeight /2)));
+                //backGround.setLayoutY(-(offset - (screenHeight /2)));
             }
         });
     }

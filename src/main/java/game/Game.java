@@ -120,10 +120,10 @@ public class Game {
 
         //choosing the ration to decide how much of the level shows on screen
         level.setWidth(screenWidth * (float)3);
-        level.setHeight(screenHeight * (float)1.75);
+        level.setHeight(screenHeight * (float)1.8);
 
         //finding the proportional size of platforms to fill the level
-        level.setPlatformWidth(((float)1/((float)LevelData.getLevelDataWidth())) * level.getWidth());
+        level.setPlatformWidth(((float)1/((float)LevelData.getLevelDataWidth())) * level.getWidth() + (float) 1.2);
         level.setPlatformHeight(((float)1/((float)LevelData.getLevelDataHeight())) * level.getHeight());
 
         //placing the camera on the player
@@ -165,7 +165,7 @@ public class Game {
                                i*level.getPlatformHeight(),
                                level.getPlatformWidth(),
                                level.getPlatformHeight(),
-                               Color.DARKMAGENTA));
+                               Color.rgb(255,0,0,0)));
                        break;
                 }
             }
