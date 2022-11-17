@@ -14,14 +14,18 @@ import java.util.Random;
 public class Laser extends Trap{
 
     //laser part used as the hitbox
-    public Node laserNode;
+    private Node laserNode;
     private int dephasing;
-    public float x;
-    public float y;
+    private float x;
+    private float y;
 
     public double laserWitdh;
 
     public double laserHeight;
+
+    public Point2D socleCoor;
+
+    public Point2D socleSize;
 
     public Laser(float x, float y, float platformWidth, float platformHeight) {
 
@@ -29,8 +33,10 @@ public class Laser extends Trap{
         this.y=y;
 
         //creating laser support
-        Rectangle trap = new Rectangle(x + platformWidth * 0.1 , y, platformWidth * 0.8, platformHeight);
-        trap.setFill(Color.BEIGE);
+        Rectangle trap = new Rectangle(x + platformWidth * 0.1 , y, platformWidth * 0.8, platformHeight * 0.4);
+        socleCoor = new Point2D(x + platformWidth * 0.1 , y - platformHeight/3);
+        socleSize = new Point2D(platformWidth * 0.8, platformHeight * 0.4);
+        trap.setFill(Color.rgb(0,0,0,0));
         this.node = trap;
 
         //creating laser
@@ -48,7 +54,12 @@ public class Laser extends Trap{
 
 
     }
-
+    public Point2D [] getSocleInfo(){
+        Point2D[] infos = new Point2D[2];
+        infos[0] = socleCoor;
+        infos[1] = socleSize;
+        return infos;
+    }
     @Override
     public void addNodesToRoot(Pane gameRoot) {
         gameRoot.getChildren().add(node);

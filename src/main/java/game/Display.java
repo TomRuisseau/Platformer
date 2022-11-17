@@ -26,6 +26,8 @@ public class Display {
 
     private ArrayList<ImageView> trapsSprites = new ArrayList<>();
 
+    private ArrayList<ImageView> socles = new ArrayList<>();
+
 
     public Display() {
 
@@ -70,16 +72,34 @@ public class Display {
 
         //creating sprites for the traps
         for (Trap trap : traps){
-            if(trap instanceof Laser){
-//                trapsSprites.add(new ImageView());
+            if(trap instanceof Laser castedTrap){
+                //socle sprite
+                Image socleImage = new Image("File:src/main/ressources/images/socleLaser.png");
+                ImageView socleSprite = new ImageView();
+                Node socle = trap.getNode();
+                socleSprite.setImage(socleImage);
+
+                socleSprite.setFitHeight(castedTrap.getSocleInfo()[1].getY());
+                socleSprite.setFitWidth(castedTrap.getSocleInfo()[1].getX());
+
+                socleSprite.setTranslateX(castedTrap.getSocleInfo()[0].getX());
+                socleSprite.setTranslateY(castedTrap.getSocleInfo()[0].getY());
+
+                socles.add(socleSprite);
+
+
+                //laser sprite
                 Image trapImage = new Image("File:src/main/ressources/images/laser.png");
                 ImageView trapSprite = new ImageView();
                 Node trapNode = trap.getNode();
                 trapSprite.setImage(trapImage);
+
                 trapSprite.setFitHeight(trap.getSpriteSize().getY());
                 trapSprite.setFitWidth(trap.getSpriteSize().getX());
+
                 trapSprite.setTranslateX(trapNode.getTranslateX());
                 trapSprite.setTranslateY(trapNode.getTranslateY());
+
                 trapsSprites.add(trapSprite);
             }
             else{
@@ -157,6 +177,9 @@ public class Display {
         gameRoot.getChildren().add(playerSprite);
         for (ImageView trap : trapsSprites){
             gameRoot.getChildren().add(trap);
+        }
+        for(ImageView socle : socles){
+            gameRoot.getChildren().add(socle);
         }
         appRoot.getChildren().addAll(backGround,gameRoot, uiRoot);
     }
