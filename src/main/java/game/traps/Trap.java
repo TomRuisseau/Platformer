@@ -1,6 +1,7 @@
 package game.traps;
 
 
+import javafx.geometry.Point2D;
 import javafx.scene.*;
 import javafx.scene.layout.Pane;
 
@@ -18,7 +19,7 @@ public abstract class Trap {
 
     public Node getNode(){return node;}
 
-    public abstract double getSawRadius();
+    public abstract Point2D getSpriteSize();
 
     public abstract int getAnimationValue();
 

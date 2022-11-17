@@ -1,5 +1,6 @@
 package game.traps;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -14,8 +15,8 @@ public class StaticSaw extends Trap {
 
     private int rotateValue = 0;
 
-    public double getSawRadius() {
-        return sawRadius;
+    public Point2D getSpriteSize() {
+        return new Point2D(sawRadius,sawRadius);
     }
 
     @Override

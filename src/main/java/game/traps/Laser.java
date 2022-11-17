@@ -2,6 +2,7 @@ package game.traps;
 
 import game.Game;
 import game.Level;
+import javafx.geometry.Point2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.*;
@@ -18,6 +19,10 @@ public class Laser extends Trap{
     public float x;
     public float y;
 
+    public double laserWitdh;
+
+    public double laserHeight;
+
     public Laser(float x, float y, float platformWidth, float platformHeight) {
 
         this.x=x;
@@ -29,8 +34,12 @@ public class Laser extends Trap{
         this.node = trap;
 
         //creating laser
-        Rectangle laser = new Rectangle(x + platformWidth * 0.3, y - 3* platformHeight, platformWidth * 0.4, platformHeight * 3);
-        laser.setFill(Color.HOTPINK);
+        Rectangle laser = new Rectangle(platformWidth * 0.4, platformHeight * 3);
+        laserWitdh = platformWidth * 0.4;
+        laserHeight = platformHeight * 3;
+        laser.setTranslateX(x + platformWidth * 0.3);
+        laser.setTranslateY(y - 3* platformHeight);
+        laser.setFill(Color.rgb(0,0,0,0));
         this.laserNode = laser;
 
         //generating a random dephasing for the laser
@@ -60,8 +69,13 @@ public class Laser extends Trap{
     }
 
     @Override
-    public double getSawRadius() {
-        return 0;
+    public Point2D getSpriteSize() {
+        return new Point2D(laserWitdh, laserHeight);
+    }
+
+    @Override
+    public Node getNode(){
+        return laserNode;
     }
 
     @Override

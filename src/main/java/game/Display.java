@@ -5,7 +5,6 @@ import game.traps.Trap;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -72,14 +71,23 @@ public class Display {
         //creating sprites for the traps
         for (Trap trap : traps){
             if(trap instanceof Laser){
-                trapsSprites.add(new ImageView());
+//                trapsSprites.add(new ImageView());
+                Image trapImage = new Image("File:src/main/ressources/images/laser.png");
+                ImageView trapSprite = new ImageView();
+                Node trapNode = trap.getNode();
+                trapSprite.setImage(trapImage);
+                trapSprite.setFitHeight(trap.getSpriteSize().getY());
+                trapSprite.setFitWidth(trap.getSpriteSize().getX());
+                trapSprite.setTranslateX(trapNode.getTranslateX());
+                trapSprite.setTranslateY(trapNode.getTranslateY());
+                trapsSprites.add(trapSprite);
             }
             else{
                 Image trapImage = new Image("File:src/main/ressources/images/static_saw.png");
                 ImageView trapSprite = new ImageView();
                 trapSprite.setImage(trapImage);
-                trapSprite.setFitHeight(trap.getSawRadius() * 2);
-                trapSprite.setFitWidth(trap.getSawRadius() * 2);
+                trapSprite.setFitHeight(trap.getSpriteSize().getX() * 2);
+                trapSprite.setFitWidth(trap.getSpriteSize().getX() * 2);
                 trapsSprites.add(trapSprite);
 
             }
@@ -101,11 +109,11 @@ public class Display {
         int i = 0;
         for (Trap trap : traps){
             if(trap instanceof Laser){
-
+                trapsSprites.get(i).setVisible(trap.getAnimationValue() == 1);
             }
             else{
-                trapsSprites.get(i).setTranslateX(trap.getNode().getTranslateX() - trap.getSawRadius());
-                trapsSprites.get(i).setTranslateY(trap.getNode().getTranslateY() - trap.getSawRadius());
+                trapsSprites.get(i).setTranslateX(trap.getNode().getTranslateX() - trap.getSpriteSize().getX());
+                trapsSprites.get(i).setTranslateY(trap.getNode().getTranslateY() - trap.getSpriteSize().getX());
                 trapsSprites.get(i).setRotate(trap.getAnimationValue() * -3);
             }
             i++;

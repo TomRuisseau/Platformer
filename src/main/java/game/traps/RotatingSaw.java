@@ -25,8 +25,8 @@ public class RotatingSaw extends Trap{
     private float y;
     private double sawRadius;
 
-    public double getSawRadius() {
-        return sawRadius;
+    public Point2D getSpriteSize() {
+        return new Point2D(sawRadius,sawRadius);
     }
 
     @Override
