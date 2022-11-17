@@ -63,7 +63,7 @@ public class Display {
         uiRoot.getChildren().add(text);
 
         //creating sprite for the character
-        Image img = new Image("File:src/main/ressources/images/hamster-round.png");
+        Image img = new Image("File:src/main/ressources/images/sphere.png");
         ImageView imgView = new ImageView();
         imgView.setImage(img);
         playerSprite = imgView;
