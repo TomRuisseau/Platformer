@@ -20,6 +20,8 @@ public abstract class Trap {
 
     public abstract double getSawRadius();
 
+    public abstract int getAnimationValue();
+
     //method to group all part of the trap together and put them in the scene
     public abstract void addNodesToRoot(Pane gameRoot);
 }

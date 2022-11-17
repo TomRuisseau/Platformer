@@ -18,20 +18,20 @@ public class RotatingSaw extends Trap{
 
     private int dephasing;
 
-    //link of rotation
-    //public Rectangle rectangleSaw = new Rectangle();
+    private int rotateValue = 0;
 
 
     private float x;
     private float y;
-
-    //total rotation
-    public double sumRota = 0 ;
-
     private double sawRadius;
 
     public double getSawRadius() {
         return sawRadius;
+    }
+
+    @Override
+    public int getAnimationValue() {
+        return rotateValue;
     }
 
     public RotatingSaw(float x, float y, float platformHeight) {
@@ -81,6 +81,8 @@ public class RotatingSaw extends Trap{
         node.setTranslateX(center.getX() + radius * Math.cos((time / (float)20) + dephasing));
         node.setTranslateY(center.getY() + radius * Math.sin((time / (float)20) + dephasing));
 
+        rotateValue += 1;
+
         //make the link rotate at the same speed
         //rectangleSaw.getTransforms().add(new Rotate(0.955,center.getX(),center.getY()));
         //sumRota = sumRota + 0.955;
@@ -93,7 +95,7 @@ public class RotatingSaw extends Trap{
         node.setTranslateX(x);
         node.setTranslateY(y - radius);
 
-
+        rotateValue = 0;
         //rectangleSaw.getTransforms().add(new Rotate(-sumRota, center.getX(), center.getY()));
         
         //sumRota = 0;

@@ -12,8 +12,15 @@ public class StaticSaw extends Trap {
 
     private double sawRadius;
 
+    private int rotateValue = 0;
+
     public double getSawRadius() {
         return sawRadius;
+    }
+
+    @Override
+    public int getAnimationValue() {
+        return rotateValue;
     }
 
     public StaticSaw(float x, float y, float platformHeight) {
@@ -34,6 +41,7 @@ public class StaticSaw extends Trap {
 
     //this trap is static so it only update the srpite and check if player should respawn
     public boolean updateTrap(long time, Node playerNode){
+        rotateValue+=1;
         return playerNode.getBoundsInParent().intersects(node.getBoundsInParent());
         //update the sprite
     }

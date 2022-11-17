@@ -15,7 +15,6 @@ public class Laser extends Trap{
     //laser part used as the hitbox
     public Node laserNode;
     private int dephasing;
-
     public float x;
     public float y;
 
@@ -63,5 +62,10 @@ public class Laser extends Trap{
     @Override
     public double getSawRadius() {
         return 0;
+    }
+
+    @Override
+    public int getAnimationValue() {
+        return laserNode.isVisible() ? 1 : 0;
     }
 }

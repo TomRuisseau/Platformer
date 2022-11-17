@@ -56,7 +56,7 @@ public class Display {
         text.setY(40);
         text.setScaleX(3);
         text.setScaleY(3);
-        text.setFill(Color.CADETBLUE);
+        text.setFill(Color.PAPAYAWHIP);
         deathCount = text;
         //adding text to the ui
         uiRoot.getChildren().add(text);
@@ -98,9 +98,17 @@ public class Display {
     }
 
     public void updateTrapsSprite(ArrayList<Trap> traps){
-        for (int i = 0; i < traps.size(); i++){
-            trapsSprites.get(i).setTranslateX(traps.get(i).getNode().getTranslateX() - traps.get(i).getSawRadius());
-            trapsSprites.get(i).setTranslateY(traps.get(i).getNode().getTranslateY() - traps.get(i).getSawRadius());
+        int i = 0;
+        for (Trap trap : traps){
+            if(trap instanceof Laser){
+
+            }
+            else{
+                trapsSprites.get(i).setTranslateX(trap.getNode().getTranslateX() - trap.getSawRadius());
+                trapsSprites.get(i).setTranslateY(trap.getNode().getTranslateY() - trap.getSawRadius());
+                trapsSprites.get(i).setRotate(trap.getAnimationValue() * -3);
+            }
+            i++;
         }
     }
 
