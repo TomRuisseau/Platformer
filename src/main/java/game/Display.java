@@ -5,6 +5,7 @@ import game.traps.Trap;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,11 +68,13 @@ public class Display {
         //creating deaht to display death counter
         Text text = new Text();
         text.setText("Death : 0");
-        text.setX(80);
-        text.setY(40);
-        text.setScaleX(3);
-        text.setScaleY(3);
-        text.setFill(Color.PAPAYAWHIP);
+        text.setX(120);
+        text.setY(60);
+        text.setScaleX(4);
+        text.setScaleY(4);
+        text.setFill(Color.rgb(190,190,20));
+        System.out.println(Font.getFamilies());
+        text.setFont(Font.font("Comic Sans MS"));
         deathCount = text;
         //adding text to the ui
         uiRoot.getChildren().add(text);
