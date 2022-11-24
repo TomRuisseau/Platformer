@@ -30,6 +30,7 @@ public class Game {
 
     private long respawnTime = 0;
 
+    private boolean won = false;
     public Game() {
 
         this.player = new Player();
@@ -86,6 +87,10 @@ public class Game {
 
     public float getLevelWidth(){return level.getWidth();}
 
+    public boolean isWon() {
+        return won;
+    }
+
     public void makePlayerMoveX(){
         player.moveX((int)getPlayerVelocity().getX(), level);
     }
@@ -98,8 +103,6 @@ public class Game {
 
     public void addToDeathCount(int nbr){deathCount += nbr;}
 
-    public void setLevelBack(ImageView back){player.setBack(back);}
-
     public ArrayList<Trap> getTrapList(){return level.getTraps();};
 
     public float getPlayerSpriteRotate(){return player.getSpriteRotate();}
@@ -107,7 +110,7 @@ public class Game {
     public void isTouchingDoor(){
         Node node = level.getDoor();
         if(getPlayerNode().getBoundsInParent().intersects(node.getBoundsInParent())){
-            System.out.println("gagné");
+            won = true;
         }
     }
 
@@ -220,18 +223,6 @@ public class Game {
 
           gameRoot.getChildren().add(player);
           return player;
-
-//        Image img = new Image("File:data/squarePink.jpg");
-//        ImageView imgView = new ImageView();
-//        imgView.setImage(img);
-//        imgView.setFitHeight((double)h);
-//        imgView.setFitWidth((double)w);
-//
-//        imgView.setTranslateX(x);
-//        imgView.setTranslateY(y);
-//
-//        gameRoot.getChildren().add(imgView);
-//        return imgView;
     }
 
     //methode used to create a single platform
@@ -267,6 +258,8 @@ public class Game {
         time = 0;
         respawnTime = 0;
         deathCount++;
+
+        won = false;
 
         //replacing the player at the spawn point
         getPlayerNode().setTranslateX(level.getPlatformWidth());

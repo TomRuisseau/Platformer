@@ -62,7 +62,7 @@ public class Controler {
     public void update(){
         game.updateTimes();
 
-        if(game.getRespawnTime() > 30){//prevent player from moving right after respawning
+        if(game.getRespawnTime() > 30 && !game.isWon()){//prevent player from moving right after respawning
 
             if ((isPressed(KeyCode.Z) || isPressed(KeyCode.SPACE) )) {
                 game.makePlayerJump();
@@ -122,6 +122,9 @@ public class Controler {
 
         //replace the background
         display.updateBackground(game.getGameRoot());
+
+        //display or hide victory screen
+        display.updateVictoryScreen(game.isWon());
 
     }
 

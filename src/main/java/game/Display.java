@@ -22,7 +22,10 @@ public class Display {
 
     private Text deathCount;
 
+    private ImageView victoryScreen;
+
     private ImageView playerSprite;
+
 
     private ArrayList<ImageView> trapsSprites = new ArrayList<>();
 
@@ -33,7 +36,7 @@ public class Display {
 
     }
 
-    public Pane getAppRoot(){
+    public Pane getAppRoot() {
         return appRoot;
     }
 
@@ -62,17 +65,30 @@ public class Display {
         //adding text to the ui
         uiRoot.getChildren().add(text);
 
+
+        Image winImg = new Image("File:src/main/ressources/images/win.png");
+        ImageView winView = new ImageView();
+        winView.setImage(winImg);
+        winView.setFitHeight(screenHeight);
+        winView.setFitWidth(screenWidth);
+        winView.setLayoutX(0);
+        winView.setLayoutY(0);
+        winView.setVisible(false);
+        this.victoryScreen = winView;
+        uiRoot.getChildren().add(winView);
+
+
         //creating sprite for the character
         Image img = new Image("File:src/main/ressources/images/sphere.png");
         ImageView imgView = new ImageView();
         imgView.setImage(img);
         playerSprite = imgView;
-        playerSprite.setFitHeight((double)playerHeight);
-        playerSprite.setFitWidth((double)playerWidth);
+        playerSprite.setFitHeight((double) playerHeight);
+        playerSprite.setFitWidth((double) playerWidth);
 
         //creating sprites for the traps
-        for (Trap trap : traps){
-            if(trap instanceof Laser castedTrap){
+        for (Trap trap : traps) {
+            if (trap instanceof Laser castedTrap) {
                 //socle sprite
                 Image socleImage = new Image("File:src/main/ressources/images/socleLaser.png");
                 ImageView socleSprite = new ImageView();
@@ -101,8 +117,7 @@ public class Display {
                 trapSprite.setTranslateY(trapNode.getTranslateY());
 
                 trapsSprites.add(trapSprite);
-            }
-            else{
+            } else {
                 Image trapImage = new Image("File:src/main/ressources/images/static_saw.png");
                 ImageView trapSprite = new ImageView();
                 trapSprite.setImage(trapImage);
@@ -115,23 +130,22 @@ public class Display {
 
     }
 
-    public void setDeathCount(int deathNumbr){
+    public void setDeathCount(int deathNumbr) {
         deathCount.setText("Death : " + deathNumbr);
     }
 
-    public void updatePlayerSprite(Node player, float rotate){
+    public void updatePlayerSprite(Node player, float rotate) {
         playerSprite.setTranslateX(player.getTranslateX());
         playerSprite.setTranslateY(player.getTranslateY());
         playerSprite.setRotate(rotate);
     }
 
-    public void updateTrapsSprite(ArrayList<Trap> traps){
+    public void updateTrapsSprite(ArrayList<Trap> traps) {
         int i = 0;
-        for (Trap trap : traps){
-            if(trap instanceof Laser){
+        for (Trap trap : traps) {
+            if (trap instanceof Laser) {
                 trapsSprites.get(i).setVisible(trap.getAnimationValue() == 1);
-            }
-            else{
+            } else {
                 trapsSprites.get(i).setTranslateX(trap.getNode().getTranslateX() - trap.getSpriteSize().getX());
                 trapsSprites.get(i).setTranslateY(trap.getNode().getTranslateY() - trap.getSpriteSize().getX());
                 trapsSprites.get(i).setRotate(trap.getAnimationValue() * -3);
@@ -141,47 +155,51 @@ public class Display {
     }
 
     //make the backgound layout equal to the level layout
-    public void updateBackground(Pane gameRoot){
+    public void updateBackground(Pane gameRoot) {
         backGround.setLayoutX(gameRoot.getLayoutX());
         backGround.setLayoutY(gameRoot.getLayoutY());
 
     }
 
+    public void updateVictoryScreen(boolean won){
+        victoryScreen.setVisible(won);
+    }
+
     //observer part
-    public void createListeners(float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight, Node node){
+    public void createListeners(float screenWidth, float screenHeight, Pane gameRoot, float levelWidth, float levelHeight, Node node) {
         //both listeners check if the player is too far from the camera center, and move it in consequence
         //it allows auto scrollig when player is further than half of the screen
 
 
-        node.translateXProperty().addListener((obs, old, newValue) ->{
+        node.translateXProperty().addListener((obs, old, newValue) -> {
             float offset = newValue.floatValue();
 
-            if(offset > (screenWidth /2) && offset <levelWidth - (screenWidth /2)){
-                gameRoot.setLayoutX(-(offset - (screenWidth /2)));
+            if (offset > (screenWidth / 2) && offset < levelWidth - (screenWidth / 2)) {
+                gameRoot.setLayoutX(-(offset - (screenWidth / 2)));
                 //backGround.setLayoutX(-(offset - (screenWidth /2)));
             }
         });
 
-        node.translateYProperty().addListener((obs, old, newValue) ->{
+        node.translateYProperty().addListener((obs, old, newValue) -> {
             float offset = newValue.floatValue();
 
-            if(offset > (screenHeight /2) && offset < levelHeight - (screenHeight /2)){
-                gameRoot.setLayoutY(-(offset - (screenHeight /2)));
+            if (offset > (screenHeight / 2) && offset < levelHeight - (screenHeight / 2)) {
+                gameRoot.setLayoutY(-(offset - (screenHeight / 2)));
                 //backGround.setLayoutY(-(offset - (screenHeight /2)));
             }
         });
     }
 
     //adding all roots to the bottom one which is appRoot
-    public void addAllToRoot(Pane gameRoot){
+    public void addAllToRoot(Pane gameRoot) {
         gameRoot.getChildren().add(playerSprite);
-        for (ImageView trap : trapsSprites){
+        for (ImageView trap : trapsSprites) {
             gameRoot.getChildren().add(trap);
         }
-        for(ImageView socle : socles){
+        for (ImageView socle : socles) {
             gameRoot.getChildren().add(socle);
         }
-        appRoot.getChildren().addAll(backGround,gameRoot, uiRoot);
+        appRoot.getChildren().addAll(backGround, gameRoot, uiRoot);
     }
 
 }
