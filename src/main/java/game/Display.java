@@ -53,6 +53,17 @@ public class Display {
         backGround = backTilesView;
         //backGround = new Rectangle(screenWidth , screenHeight);
 
+        Image winImg = new Image("File:src/main/ressources/images/win.png");
+        ImageView winView = new ImageView();
+        winView.setImage(winImg);
+        winView.setFitHeight(screenHeight);
+        winView.setFitWidth(screenWidth);
+        winView.setLayoutX(0);
+        winView.setLayoutY(0);
+        winView.setVisible(false);
+        this.victoryScreen = winView;
+        uiRoot.getChildren().add(winView);
+
         //creating deaht to display death counter
         Text text = new Text();
         text.setText("Death : 0");
@@ -64,18 +75,6 @@ public class Display {
         deathCount = text;
         //adding text to the ui
         uiRoot.getChildren().add(text);
-
-
-        Image winImg = new Image("File:src/main/ressources/images/win.png");
-        ImageView winView = new ImageView();
-        winView.setImage(winImg);
-        winView.setFitHeight(screenHeight);
-        winView.setFitWidth(screenWidth);
-        winView.setLayoutX(0);
-        winView.setLayoutY(0);
-        winView.setVisible(false);
-        this.victoryScreen = winView;
-        uiRoot.getChildren().add(winView);
 
 
         //creating sprite for the character
