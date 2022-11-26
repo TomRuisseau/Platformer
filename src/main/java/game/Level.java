@@ -84,7 +84,7 @@ public class Level {
         myDoor.setHeight(height);
         myDoor.setTranslateX(x);
         myDoor.setTranslateY(y);
-        myDoor.setFill(Color.DARKGREEN);
+        myDoor.setFill(Color.TRANSPARENT);
         this.door = myDoor;
         return myDoor;
     }
