@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Display {
@@ -23,7 +24,15 @@ public class Display {
 
     private Text deathCount;
 
-    private ImageView victoryScreen;
+    private Text deathCountEnd;
+
+    Text text = new Text();
+
+    private final Text died = new Text();
+
+    private final Text tryToBeGood = new Text();
+
+    private final Text retry = new Text();
 
     private ImageView playerSprite;
 
@@ -54,30 +63,66 @@ public class Display {
         backGround = backTilesView;
         //backGround = new Rectangle(screenWidth , screenHeight);
 
-        Image winImg = new Image("File:src/main/ressources/images/win.png");
-        ImageView winView = new ImageView();
-        winView.setImage(winImg);
-        winView.setFitHeight(screenHeight);
-        winView.setFitWidth(screenWidth);
-        winView.setLayoutX(0);
-        winView.setLayoutY(0);
-        winView.setVisible(false);
-        this.victoryScreen = winView;
-        uiRoot.getChildren().add(winView);
+        Font font = Font.loadFont("File:src/main/ressources/fonts/PermanentMarker-Regular.ttf", 45);
+
 
         //creating deaht to display death counter
-        Text text = new Text();
+
         text.setText("Death : 0");
-        text.setX(120);
+        text.setX(60);
         text.setY(60);
-        text.setScaleX(4);
-        text.setScaleY(4);
-        text.setFill(Color.rgb(190,190,20));
-        System.out.println(Font.getFamilies());
-        text.setFont(Font.font("Comic Sans MS"));
+        text.setScaleX(1.5);
+        text.setScaleY(1.5);
+        text.setFill(Color.rgb(255,255,255));
+        text.setStyle("-fx-stroke: firebrick;");
+        text.setFont(font);
         deathCount = text;
         //adding text to the ui
         uiRoot.getChildren().add(text);
+
+        //creating text for the winning screen
+        died.setText("You died  0 times" );
+        died.setFont(font);
+        //putting border on text
+        died.setStyle("-fx-stroke: firebrick;");
+        died.setX(750);
+        died.setY(300);
+        died.setScaleX(2);
+        died.setScaleY(2);
+        died.setFill(Color.rgb(255,255,255));
+        died.setVisible(true);
+        deathCountEnd = died;
+        //adding text to the ui
+        uiRoot.getChildren().add(died);
+
+        //creatin text for winning screen
+        tryToBeGood.setText("Try to be good please");
+        tryToBeGood.setFont(font);
+        tryToBeGood.setStyle("-fx-stroke: firebrick;");
+        tryToBeGood.setX(700);
+        tryToBeGood.setY(600);
+        tryToBeGood.setScaleX(3);
+        tryToBeGood.setScaleY(3);
+        tryToBeGood.setFill(Color.rgb(255,255,255));
+        tryToBeGood.setVisible(true);
+        //adding text to the ui
+        uiRoot.getChildren().add(tryToBeGood);
+
+
+        //creatin text for winning screen
+        retry.setText("Press R to retry");
+        retry.setFont(font);
+        retry.setStyle("-fx-stroke: firebrick;");
+        retry.setX(700);
+        retry.setY(900);
+        retry.setScaleX(3);
+        retry.setScaleY(3);
+        retry.setFill(Color.rgb(255,255,255));
+        retry.setVisible(true);
+        //adding text to the ui
+        uiRoot.getChildren().add(retry);
+
+
 
 
         //creating sprite for the character
@@ -132,8 +177,13 @@ public class Display {
 
     }
 
+
     public void setDeathCount(int deathNumbr) {
         deathCount.setText("Death : " + deathNumbr);
+    }
+
+    public void setDeathcountEnd(int deathNumbr) {
+        deathCountEnd.setText("You died " + deathNumbr +" times");
     }
 
     public void updatePlayerSprite(Node player, float rotate) {
@@ -164,7 +214,11 @@ public class Display {
     }
 
     public void updateVictoryScreen(boolean won){
-        victoryScreen.setVisible(won);
+        died.setVisible(won);
+        tryToBeGood.setVisible(won);
+        retry.setVisible(won);
+        text.setVisible(!won);
+
     }
 
     //observer part

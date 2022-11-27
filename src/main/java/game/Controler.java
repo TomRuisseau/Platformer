@@ -102,6 +102,7 @@ public class Controler {
         if(isPressed((KeyCode.R))){
             game.restart(screenHeight);
             game.addToDeathCount(-1);
+            game.addToDeathCountEnd(-1);
         }
 
         //restart the game if the player falls below the screen
@@ -113,6 +114,8 @@ public class Controler {
 
         //update ui text
         display.setDeathCount(game.getDeathCount());
+
+        display.setDeathcountEnd(game.getDeathCountEnd());
 
         //replace and animate palayerSprite
         display.updatePlayerSprite(game.getPlayerNode(), game.getPlayerSpriteRotate());

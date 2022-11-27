@@ -26,6 +26,9 @@ public class Game {
     private LevelData levelData;
 
     private int deathCount = 0;
+
+    private int deathCountEnd = 0;
+
     private long time = 0;
 
     private long respawnTime = 0;
@@ -101,7 +104,13 @@ public class Game {
 
     public int getDeathCount(){return deathCount;}
 
+    public int getDeathCountEnd(){return deathCountEnd;}
+
+
+
     public void addToDeathCount(int nbr){deathCount += nbr;}
+
+    public void addToDeathCountEnd(int nbr){deathCountEnd += nbr;}
 
     public ArrayList<Trap> getTrapList(){return level.getTraps();};
 
@@ -258,6 +267,7 @@ public class Game {
         time = 0;
         respawnTime = 0;
         deathCount++;
+        deathCountEnd++;
 
         won = false;
 
